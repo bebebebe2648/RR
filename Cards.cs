@@ -27,7 +27,7 @@ public class Cards : Photon.PunBehaviour
     [SerializeField]
     public Button Clown_Button, Princess_Button, Spy_Button, Assassin_Button, Ministry_Button, Magician_Button, General_Button, Prince_Button;
 
-    //説明のテキスト
+    //カード・ルールなどの説明のテキスト
     [SerializeField]
     public Text Message_Text;
 
@@ -42,8 +42,23 @@ public class Cards : Photon.PunBehaviour
 
     PhotonView RRView;
 
+    //勝敗判定の参照用
     [SerializeField]
     ClownB ClownB;
+    [SerializeField]
+    PrincessB PrincessB;
+    [SerializeField]
+    SpyB SpyB;
+    [SerializeField]
+    AssassinB AssassinB;
+    [SerializeField]
+    MinistryB MinistryB;
+    [SerializeField]
+    MagicianB MagicianB;
+    [SerializeField]
+    GeneralB GeneralB;
+    [SerializeField]
+    PrinceB PrinceB;
 
     //勝敗表示パネル(WorLP)
     [SerializeField]
@@ -67,9 +82,12 @@ public class Cards : Photon.PunBehaviour
 
     //リセットボタン
     [SerializeField]
-    Button Reset_Button;
+    public Button Reset_Button;
 
-    //自分の勝敗カウント
+    //
+    public bool Reset_Flag = false;
+
+    //勝敗カウント
     public int WIN_Count = 0;
     public int LOSE_Count = 0;
 
@@ -167,7 +185,7 @@ public class Cards : Photon.PunBehaviour
         //ゲーム終了時、リセットボタンを押せるように
         if (WIN_Count >= 4 || LOSE_Count >= 4)
         {
-            Reset_Button.interactable = true;
+            Reset_Flag = true;
         }
     }
 
@@ -200,31 +218,31 @@ public class Cards : Photon.PunBehaviour
                 break;
 
             case 1:
-
+                PrincessB.Princess_Win_Lose();
                 break;
 
             case 2:
-
+                SpyB.Spy_Win_Lose();
                 break;
 
             case 3:
-
+                AssassinB.Assassin_Win_Lose();
                 break;
 
             case 4:
-
+                MinistryB.Ministry_Win_Lose();
                 break;
 
             case 5:
-
+                MagicianB.Magician_Win_Lose();
                 break;
 
             case 6:
-
+                GeneralB.General_Win_Lose();
                 break;
 
             case 7:
-
+                PrinceB.Prince_Win_Lose();
                 break;
         }
     }

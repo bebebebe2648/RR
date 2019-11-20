@@ -8,8 +8,6 @@ public class ClownB : Photon.PunBehaviour
     Cards Cards;
 
     [SerializeField]
-    NTSys NT;
-    [SerializeField]
     READYB RB;
     [SerializeField]
     YESB YES;
@@ -22,7 +20,7 @@ public class ClownB : Photon.PunBehaviour
             Cards.Clown_Button.interactable = false;
         }
 
-        if (NT.SpyE == true)
+        if (Cards.Spy_Effect == true)
         {
             Cards.Clown_Button.interactable = false;
         }
@@ -109,6 +107,13 @@ public class ClownB : Photon.PunBehaviour
                     //勝利数を持ち越し加算
                     Cards.ADD_Win_Lose += 1;
 
+                    //自分の勝敗数表示
+                    Cards.Own_Win.text = "WIN : " + Cards.WIN_Count.ToString();
+                    Cards.Own_Lose.text = "LOSE : " + Cards.LOSE_Count.ToString();
+                    //相手の勝敗数表示
+                    Cards.Other_Win.text = "WIN : " + Cards.LOSE_Count.ToString();
+                    Cards.Other_Lose.text = "LOSE : " + Cards.WIN_Count.ToString();
+
                     //将軍のフラグをfalseに
                     Cards.Own_General_Effect = false;
                     Cards.Other_General_Effect = false;
@@ -127,6 +132,13 @@ public class ClownB : Photon.PunBehaviour
                     //勝利数を持ち越し加算
                     Cards.ADD_Win_Lose += 1;
 
+                    //自分の勝敗数表示
+                    Cards.Own_Win.text = "WIN : " + Cards.WIN_Count.ToString();
+                    Cards.Own_Lose.text = "LOSE : " + Cards.LOSE_Count.ToString();
+                    //相手の勝敗数表示
+                    Cards.Other_Win.text = "WIN : " + Cards.LOSE_Count.ToString();
+                    Cards.Other_Lose.text = "LOSE : " + Cards.WIN_Count.ToString();
+
                     //将軍のフラグをfalseに
                     Cards.Own_General_Effect = false;
                     Cards.Other_General_Effect = false;
@@ -144,6 +156,13 @@ public class ClownB : Photon.PunBehaviour
 
                     //勝利数を持ち越し加算
                     Cards.ADD_Win_Lose += 1;
+
+                    //自分の勝敗数表示
+                    Cards.Own_Win.text = "WIN : " + Cards.WIN_Count.ToString();
+                    Cards.Own_Lose.text = "LOSE : " + Cards.LOSE_Count.ToString();
+                    //相手の勝敗数表示
+                    Cards.Other_Win.text = "WIN : " + Cards.LOSE_Count.ToString();
+                    Cards.Other_Lose.text = "LOSE : " + Cards.WIN_Count.ToString();
 
                     //将軍のフラグをfalseに
                     Cards.Own_General_Effect = false;
@@ -166,6 +185,13 @@ public class ClownB : Photon.PunBehaviour
                     //勝利数を持ち越し加算
                     Cards.ADD_Win_Lose += 1;
 
+                    //自分の勝敗数表示
+                    Cards.Own_Win.text = "WIN : " + Cards.WIN_Count.ToString();
+                    Cards.Own_Lose.text = "LOSE : " + Cards.LOSE_Count.ToString();
+                    //相手の勝敗数表示
+                    Cards.Other_Win.text = "WIN : " + Cards.LOSE_Count.ToString();
+                    Cards.Other_Lose.text = "LOSE : " + Cards.WIN_Count.ToString();
+
                     //将軍のフラグをfalseに
                     Cards.Own_General_Effect = false;
                     Cards.Other_General_Effect = false;
@@ -184,6 +210,13 @@ public class ClownB : Photon.PunBehaviour
                     //勝利数を持ち越し加算
                     Cards.ADD_Win_Lose += 1;
 
+                    //自分の勝敗数表示
+                    Cards.Own_Win.text = "WIN : " + Cards.WIN_Count.ToString();
+                    Cards.Own_Lose.text = "LOSE : " + Cards.LOSE_Count.ToString();
+                    //相手の勝敗数表示
+                    Cards.Other_Win.text = "WIN : " + Cards.LOSE_Count.ToString();
+                    Cards.Other_Lose.text = "LOSE : " + Cards.WIN_Count.ToString();
+
                     //将軍のフラグをfalseに
                     Cards.Own_General_Effect = false;
                     Cards.Other_General_Effect = false;
@@ -200,7 +233,6 @@ public class ClownB : Photon.PunBehaviour
                     Cards.Big_or_Small.text = "   YOU LOSE...";
 
                     //勝敗数を加算
-                    Cards.WIN_Count += Cards.ADD_Win_Lose;
                     Cards.LOSE_Count += Cards.ADD_Win_Lose;
                     //勝敗加算を初期化
                     Cards.ADD_Win_Lose = 1;
@@ -229,6 +261,13 @@ public class ClownB : Photon.PunBehaviour
 
                     //勝利数を持ち越し加算
                     Cards.ADD_Win_Lose += 1;
+
+                    //自分の勝敗数表示
+                    Cards.Own_Win.text = "WIN : " + Cards.WIN_Count.ToString();
+                    Cards.Own_Lose.text = "LOSE : " + Cards.LOSE_Count.ToString();
+                    //相手の勝敗数表示
+                    Cards.Other_Win.text = "WIN : " + Cards.LOSE_Count.ToString();
+                    Cards.Other_Lose.text = "LOSE : " + Cards.WIN_Count.ToString();
 
                     //将軍のフラグをfalseに
                     Cards.Own_General_Effect = false;
@@ -254,6 +293,13 @@ public class ClownB : Photon.PunBehaviour
 
                     //勝利数を持ち越し加算
                     Cards.ADD_Win_Lose += 1;
+
+                    //自分の勝敗数表示
+                    Cards.Own_Win.text = "WIN : " + Cards.WIN_Count.ToString();
+                    Cards.Own_Lose.text = "LOSE : " + Cards.LOSE_Count.ToString();
+                    //相手の勝敗数表示
+                    Cards.Other_Win.text = "WIN : " + Cards.LOSE_Count.ToString();
+                    Cards.Other_Lose.text = "LOSE : " + Cards.WIN_Count.ToString();
                     break;
 
                 case 1:
@@ -268,6 +314,13 @@ public class ClownB : Photon.PunBehaviour
 
                     //勝利数を持ち越し加算
                     Cards.ADD_Win_Lose += 1;
+
+                    //自分の勝敗数表示
+                    Cards.Own_Win.text = "WIN : " + Cards.WIN_Count.ToString();
+                    Cards.Own_Lose.text = "LOSE : " + Cards.LOSE_Count.ToString();
+                    //相手の勝敗数表示
+                    Cards.Other_Win.text = "WIN : " + Cards.LOSE_Count.ToString();
+                    Cards.Other_Lose.text = "LOSE : " + Cards.WIN_Count.ToString();
                     break;
 
                 case 2:
@@ -282,6 +335,13 @@ public class ClownB : Photon.PunBehaviour
 
                     //勝利数を持ち越し加算
                     Cards.ADD_Win_Lose += 1;
+
+                    //自分の勝敗数表示
+                    Cards.Own_Win.text = "WIN : " + Cards.WIN_Count.ToString();
+                    Cards.Own_Lose.text = "LOSE : " + Cards.LOSE_Count.ToString();
+                    //相手の勝敗数表示
+                    Cards.Other_Win.text = "WIN : " + Cards.LOSE_Count.ToString();
+                    Cards.Other_Lose.text = "LOSE : " + Cards.WIN_Count.ToString();
 
                     //密偵のフラグをtrueに
                     Cards.Spy_Effect = true;
@@ -299,6 +359,13 @@ public class ClownB : Photon.PunBehaviour
 
                     //勝利数を持ち越し加算
                     Cards.ADD_Win_Lose += 1;
+
+                    //自分の勝敗数表示
+                    Cards.Own_Win.text = "WIN : " + Cards.WIN_Count.ToString();
+                    Cards.Own_Lose.text = "LOSE : " + Cards.LOSE_Count.ToString();
+                    //相手の勝敗数表示
+                    Cards.Other_Win.text = "WIN : " + Cards.LOSE_Count.ToString();
+                    Cards.Other_Lose.text = "LOSE : " + Cards.WIN_Count.ToString();
                     break;
 
                 case 4:
@@ -313,6 +380,13 @@ public class ClownB : Photon.PunBehaviour
 
                     //勝利数を持ち越し加算
                     Cards.ADD_Win_Lose += 1;
+
+                    //自分の勝敗数表示
+                    Cards.Own_Win.text = "WIN : " + Cards.WIN_Count.ToString();
+                    Cards.Own_Lose.text = "LOSE : " + Cards.LOSE_Count.ToString();
+                    //相手の勝敗数表示
+                    Cards.Other_Win.text = "WIN : " + Cards.LOSE_Count.ToString();
+                    Cards.Other_Lose.text = "LOSE : " + Cards.WIN_Count.ToString();
                     break;
 
                 case 5:
@@ -326,7 +400,6 @@ public class ClownB : Photon.PunBehaviour
                     Cards.Big_or_Small.text = "   YOU LOSE...";
 
                     //勝敗数を加算
-                    Cards.WIN_Count += Cards.ADD_Win_Lose;
                     Cards.LOSE_Count += Cards.ADD_Win_Lose;
                     //勝敗加算を初期化
                     Cards.ADD_Win_Lose = 1;
@@ -352,6 +425,13 @@ public class ClownB : Photon.PunBehaviour
                     //勝利数を持ち越し加算
                     Cards.ADD_Win_Lose += 1;
 
+                    //自分の勝敗数表示
+                    Cards.Own_Win.text = "WIN : " + Cards.WIN_Count.ToString();
+                    Cards.Own_Lose.text = "LOSE : " + Cards.LOSE_Count.ToString();
+                    //相手の勝敗数表示
+                    Cards.Other_Win.text = "WIN : " + Cards.LOSE_Count.ToString();
+                    Cards.Other_Lose.text = "LOSE : " + Cards.WIN_Count.ToString();
+
                     //将軍のフラグをtrueに
                     Cards.Other_General_Effect = true;
                     break;
@@ -368,6 +448,13 @@ public class ClownB : Photon.PunBehaviour
 
                     //勝利数を持ち越し加算
                     Cards.ADD_Win_Lose += 1;
+
+                    //自分の勝敗数表示
+                    Cards.Own_Win.text = "WIN : " + Cards.WIN_Count.ToString();
+                    Cards.Own_Lose.text = "LOSE : " + Cards.LOSE_Count.ToString();
+                    //相手の勝敗数表示
+                    Cards.Other_Win.text = "WIN : " + Cards.LOSE_Count.ToString();
+                    Cards.Other_Lose.text = "LOSE : " + Cards.WIN_Count.ToString();
                     break;
             }
         }
@@ -389,6 +476,16 @@ public class ClownB : Photon.PunBehaviour
 
                     //勝利数を持ち越し加算
                     Cards.ADD_Win_Lose += 1;
+
+                    //自分の勝敗数表示
+                    Cards.Own_Win.text = "WIN : " + Cards.WIN_Count.ToString();
+                    Cards.Own_Lose.text = "LOSE : " + Cards.LOSE_Count.ToString();
+                    //相手の勝敗数表示
+                    Cards.Other_Win.text = "WIN : " + Cards.LOSE_Count.ToString();
+                    Cards.Other_Lose.text = "LOSE : " + Cards.WIN_Count.ToString();
+
+                    //自分の将軍のフラグをfalseに
+                    Cards.Own_General_Effect = false;
                     break;
 
                 case 1:
@@ -403,6 +500,16 @@ public class ClownB : Photon.PunBehaviour
 
                     //勝利数を持ち越し加算
                     Cards.ADD_Win_Lose += 1;
+
+                    //自分の勝敗数表示
+                    Cards.Own_Win.text = "WIN : " + Cards.WIN_Count.ToString();
+                    Cards.Own_Lose.text = "LOSE : " + Cards.LOSE_Count.ToString();
+                    //相手の勝敗数表示
+                    Cards.Other_Win.text = "WIN : " + Cards.LOSE_Count.ToString();
+                    Cards.Other_Lose.text = "LOSE : " + Cards.WIN_Count.ToString();
+
+                    //自分の将軍のフラグをfalseに
+                    Cards.Own_General_Effect = false;
                     break;
 
                 case 2:
@@ -417,6 +524,16 @@ public class ClownB : Photon.PunBehaviour
 
                     //勝利数を持ち越し加算
                     Cards.ADD_Win_Lose += 1;
+
+                    //自分の勝敗数表示
+                    Cards.Own_Win.text = "WIN : " + Cards.WIN_Count.ToString();
+                    Cards.Own_Lose.text = "LOSE : " + Cards.LOSE_Count.ToString();
+                    //相手の勝敗数表示
+                    Cards.Other_Win.text = "WIN : " + Cards.LOSE_Count.ToString();
+                    Cards.Other_Lose.text = "LOSE : " + Cards.WIN_Count.ToString();
+
+                    //自分の将軍のフラグをfalseに
+                    Cards.Own_General_Effect = false;
 
                     //密偵のフラグをtrueに
                     Cards.Spy_Effect = true;
@@ -434,6 +551,16 @@ public class ClownB : Photon.PunBehaviour
 
                     //勝利数を持ち越し加算
                     Cards.ADD_Win_Lose += 1;
+
+                    //自分の勝敗数表示
+                    Cards.Own_Win.text = "WIN : " + Cards.WIN_Count.ToString();
+                    Cards.Own_Lose.text = "LOSE : " + Cards.LOSE_Count.ToString();
+                    //相手の勝敗数表示
+                    Cards.Other_Win.text = "WIN : " + Cards.LOSE_Count.ToString();
+                    Cards.Other_Lose.text = "LOSE : " + Cards.WIN_Count.ToString();
+
+                    //自分の将軍のフラグをfalseに
+                    Cards.Own_General_Effect = false;
                     break;
 
                 case 4:
@@ -448,6 +575,16 @@ public class ClownB : Photon.PunBehaviour
 
                     //勝利数を持ち越し加算
                     Cards.ADD_Win_Lose += 1;
+
+                    //自分の勝敗数表示
+                    Cards.Own_Win.text = "WIN : " + Cards.WIN_Count.ToString();
+                    Cards.Own_Lose.text = "LOSE : " + Cards.LOSE_Count.ToString();
+                    //相手の勝敗数表示
+                    Cards.Other_Win.text = "WIN : " + Cards.LOSE_Count.ToString();
+                    Cards.Other_Lose.text = "LOSE : " + Cards.WIN_Count.ToString();
+
+                    //自分の将軍のフラグをfalseに
+                    Cards.Own_General_Effect = false;
                     break;
 
                 case 5:
@@ -461,7 +598,6 @@ public class ClownB : Photon.PunBehaviour
                     Cards.Big_or_Small.text = "   YOU LOSE...";
 
                     //勝敗数を加算
-                    Cards.WIN_Count += Cards.ADD_Win_Lose;
                     Cards.LOSE_Count += Cards.ADD_Win_Lose;
                     //勝敗加算を初期化
                     Cards.ADD_Win_Lose = 1;
@@ -472,6 +608,9 @@ public class ClownB : Photon.PunBehaviour
                     //相手の勝敗数表示
                     Cards.Other_Win.text = "WIN : " + Cards.LOSE_Count.ToString();
                     Cards.Other_Lose.text = "LOSE : " + Cards.WIN_Count.ToString();
+
+                    //自分の将軍のフラグをfalseに
+                    Cards.Own_General_Effect = false;
                     break;
 
                 case 6:
@@ -487,7 +626,17 @@ public class ClownB : Photon.PunBehaviour
                     //勝利数を持ち越し加算
                     Cards.ADD_Win_Lose += 1;
 
-                    //将軍のフラグをtrueに
+                    //自分の勝敗数表示
+                    Cards.Own_Win.text = "WIN : " + Cards.WIN_Count.ToString();
+                    Cards.Own_Lose.text = "LOSE : " + Cards.LOSE_Count.ToString();
+                    //相手の勝敗数表示
+                    Cards.Other_Win.text = "WIN : " + Cards.LOSE_Count.ToString();
+                    Cards.Other_Lose.text = "LOSE : " + Cards.WIN_Count.ToString();
+
+                    //自分の将軍のフラグをfalseに
+                    Cards.Own_General_Effect = false;
+
+                    //相手の将軍のフラグをtrueに
                     Cards.Other_General_Effect = true;
                     break;
 
@@ -503,6 +652,16 @@ public class ClownB : Photon.PunBehaviour
 
                     //勝利数を持ち越し加算
                     Cards.ADD_Win_Lose += 1;
+
+                    //自分の勝敗数表示
+                    Cards.Own_Win.text = "WIN : " + Cards.WIN_Count.ToString();
+                    Cards.Own_Lose.text = "LOSE : " + Cards.LOSE_Count.ToString();
+                    //相手の勝敗数表示
+                    Cards.Other_Win.text = "WIN : " + Cards.LOSE_Count.ToString();
+                    Cards.Other_Lose.text = "LOSE : " + Cards.WIN_Count.ToString();
+
+                    //自分の将軍のフラグをfalseに
+                    Cards.Own_General_Effect = false;
                     break;
             }
         }
@@ -524,6 +683,16 @@ public class ClownB : Photon.PunBehaviour
 
                     //勝利数を持ち越し加算
                     Cards.ADD_Win_Lose += 1;
+
+                    //自分の勝敗数表示
+                    Cards.Own_Win.text = "WIN : " + Cards.WIN_Count.ToString();
+                    Cards.Own_Lose.text = "LOSE : " + Cards.LOSE_Count.ToString();
+                    //相手の勝敗数表示
+                    Cards.Other_Win.text = "WIN : " + Cards.LOSE_Count.ToString();
+                    Cards.Other_Lose.text = "LOSE : " + Cards.WIN_Count.ToString();
+
+                    //相手の将軍のフラグをfalseに
+                    Cards.Other_General_Effect = false;
                     break;
 
                 case 1:
@@ -538,6 +707,16 @@ public class ClownB : Photon.PunBehaviour
 
                     //勝利数を持ち越し加算
                     Cards.ADD_Win_Lose += 1;
+
+                    //自分の勝敗数表示
+                    Cards.Own_Win.text = "WIN : " + Cards.WIN_Count.ToString();
+                    Cards.Own_Lose.text = "LOSE : " + Cards.LOSE_Count.ToString();
+                    //相手の勝敗数表示
+                    Cards.Other_Win.text = "WIN : " + Cards.LOSE_Count.ToString();
+                    Cards.Other_Lose.text = "LOSE : " + Cards.WIN_Count.ToString();
+
+                    //相手の将軍のフラグをfalseに
+                    Cards.Other_General_Effect = false;
                     break;
 
                 case 2:
@@ -552,6 +731,16 @@ public class ClownB : Photon.PunBehaviour
 
                     //勝利数を持ち越し加算
                     Cards.ADD_Win_Lose += 1;
+
+                    //自分の勝敗数表示
+                    Cards.Own_Win.text = "WIN : " + Cards.WIN_Count.ToString();
+                    Cards.Own_Lose.text = "LOSE : " + Cards.LOSE_Count.ToString();
+                    //相手の勝敗数表示
+                    Cards.Other_Win.text = "WIN : " + Cards.LOSE_Count.ToString();
+                    Cards.Other_Lose.text = "LOSE : " + Cards.WIN_Count.ToString();
+
+                    //相手の将軍のフラグをfalseに
+                    Cards.Other_General_Effect = false;
 
                     //密偵のフラグをtrueに
                     Cards.Spy_Effect = true;
@@ -569,6 +758,16 @@ public class ClownB : Photon.PunBehaviour
 
                     //勝利数を持ち越し加算
                     Cards.ADD_Win_Lose += 1;
+
+                    //自分の勝敗数表示
+                    Cards.Own_Win.text = "WIN : " + Cards.WIN_Count.ToString();
+                    Cards.Own_Lose.text = "LOSE : " + Cards.LOSE_Count.ToString();
+                    //相手の勝敗数表示
+                    Cards.Other_Win.text = "WIN : " + Cards.LOSE_Count.ToString();
+                    Cards.Other_Lose.text = "LOSE : " + Cards.WIN_Count.ToString();
+
+                    //相手の将軍のフラグをfalseに
+                    Cards.Other_General_Effect = false;
                     break;
 
                 case 4:
@@ -583,6 +782,16 @@ public class ClownB : Photon.PunBehaviour
 
                     //勝利数を持ち越し加算
                     Cards.ADD_Win_Lose += 1;
+
+                    //自分の勝敗数表示
+                    Cards.Own_Win.text = "WIN : " + Cards.WIN_Count.ToString();
+                    Cards.Own_Lose.text = "LOSE : " + Cards.LOSE_Count.ToString();
+                    //相手の勝敗数表示
+                    Cards.Other_Win.text = "WIN : " + Cards.LOSE_Count.ToString();
+                    Cards.Other_Lose.text = "LOSE : " + Cards.WIN_Count.ToString();
+
+                    //相手の将軍のフラグをfalseに
+                    Cards.Other_General_Effect = false;
                     break;
 
                 case 5:
@@ -596,7 +805,6 @@ public class ClownB : Photon.PunBehaviour
                     Cards.Big_or_Small.text = "   YOU LOSE...";
 
                     //勝敗数を加算
-                    Cards.WIN_Count += Cards.ADD_Win_Lose;
                     Cards.LOSE_Count += Cards.ADD_Win_Lose;
                     //勝敗加算を初期化
                     Cards.ADD_Win_Lose = 1;
@@ -607,6 +815,9 @@ public class ClownB : Photon.PunBehaviour
                     //相手の勝敗数表示
                     Cards.Other_Win.text = "WIN : " + Cards.LOSE_Count.ToString();
                     Cards.Other_Lose.text = "LOSE : " + Cards.WIN_Count.ToString();
+
+                    //相手の将軍のフラグをfalseに
+                    Cards.Other_General_Effect = false;
                     break;
 
                 case 7:
@@ -621,6 +832,16 @@ public class ClownB : Photon.PunBehaviour
 
                     //勝利数を持ち越し加算
                     Cards.ADD_Win_Lose += 1;
+
+                    //自分の勝敗数表示
+                    Cards.Own_Win.text = "WIN : " + Cards.WIN_Count.ToString();
+                    Cards.Own_Lose.text = "LOSE : " + Cards.LOSE_Count.ToString();
+                    //相手の勝敗数表示
+                    Cards.Other_Win.text = "WIN : " + Cards.LOSE_Count.ToString();
+                    Cards.Other_Lose.text = "LOSE : " + Cards.WIN_Count.ToString();
+
+                    //相手の将軍のフラグをfalseに
+                    Cards.Other_General_Effect = false;
                     break;
             }
         }
