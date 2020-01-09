@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class ClownB : Photon.PunBehaviour
+public class SpyB : Photon.PunBehaviour
 {
     [SerializeField]
     Cards Cards;
@@ -11,43 +12,42 @@ public class ClownB : Photon.PunBehaviour
     GameObject Check_Panel;
     [SerializeField]
     YESB YES;
-
-    // Update is called once per frame
-    void Update()
+	
+	void Update ()
     {
-        if (Cards.Clown_Card[0].Used_Card == true)
+        if (Cards.Spy_Card[0].Used_Card == true)
         {
-            Cards.Clown_Button.interactable = false;
+            Cards.Spy_Button.interactable = false;
         }
 
         if (Cards.Spy_Effect == true)
         {
-            Cards.Clown_Button.interactable = false;
+            Cards.Spy_Button.interactable = false;
         }
     }
 
     public void OnMouseEnter()
     {
-        if (Cards.Clown_Card[0].Card_Flag == false)
+        if (Cards.Spy_Card[0].Card_Flag == false)
         {
-            Cards.Message_Text.text = "勝負を次の勝負に持ち越す。\n（次の勝負に勝てば、この勝負を\n含めて2勝扱い）";
+            Cards.Message_Text.text = "相手は次の勝負で、先に手を\n晒さなければならない。";
         }
     }
 
     public void OnMouseExit()
     {
-        if (Cards.Clown_Card[0].Card_Flag == false)
+        if (Cards.Spy_Card[0].Card_Flag == false)
         {
             Cards.Message_Text.text = "ボタンを選んで押してください。\nボタンにカーソルを合わせると\n説明が出ます。\n【】内の数値の大きい方が\n勝ちです。\n4回勝てばゲームに勝利します。";
         }
     }
-
+    
     public void OnClick()
     {
         Check_Panel.gameObject.SetActive(true);
 
         //ボタンを押せないように
-        Cards.Clown_Card[0].Use_Card = true;
+        Cards.Spy_Card[0].Use_Card = true;
 
         Cards.Clown_Button.interactable = false;
         Cards.Princess_Button.interactable = false;
@@ -68,26 +68,26 @@ public class ClownB : Photon.PunBehaviour
         Cards.General_Card[0].Card_Flag = true;
         Cards.Prince_Card[0].Card_Flag = true;
 
-        YES.YESNum = Cards.Clown_Card[0].Card_Num;
-        Cards.Message_Text.text = "【道化】を選択中。";
+        YES.YESNum = Cards.Spy_Card[0].Card_Num;
+        Cards.Message_Text.text = "【密偵】を選択中。";
     }
 
-    public void Clown_Win_Lose()
+    public void Spy_Win_Lose()
     {
         //自分の処理
         if (PhotonNetwork.player.IsMasterClient)
         {
-            ClownCard_WINorLOSE();
+            SpyCard_WINorLOSE();
         }
 
         //相手の処理
         else
         {
-            ClownCard_WINorLOSE();
+            SpyCard_WINorLOSE();
         }
     }
 
-    public void ClownCard_WINorLOSE()
+    public void SpyCard_WINorLOSE()
     {
         //両方将軍効果がついてる場合
         if (Cards.Own_General_Effect == true && Cards.Other_General_Effect == true)
@@ -100,62 +100,8 @@ public class ClownB : Photon.PunBehaviour
                     Debug.Log("Other: " + Cards.Other_Num);
 
                     //お互いのカードの表示
-                    Cards.Owner_Card.text = "あなたは道化【" + Cards.Own_Num + "（将軍！）】を出しました。";
+                    Cards.Owner_Card.text = "あなたは密偵【" + Cards.Own_Num + "（将軍！）】を出しました。";
                     Cards.Other_Card.text = "相手は道化【" + Cards.Other_Num + "（将軍！）】を出しました。";
-
-                    //結果メッセージ
-                    Cards.Big_or_Small.text = "NEXT BATTLE!?";
-
-                    //勝利数を持ち越し加算
-                    Cards.ADD_Win_Lose += 1;
-
-                    //自分の勝敗数表示
-                    Cards.Own_Win.text = "WIN : " + Cards.WIN_Count.ToString();
-                    Cards.Own_Lose.text = "LOSE : " + Cards.LOSE_Count.ToString();
-                    //相手の勝敗数表示
-                    Cards.Other_Win.text = "WIN : " + Cards.LOSE_Count.ToString();
-                    Cards.Other_Lose.text = "LOSE : " + Cards.WIN_Count.ToString();
-
-                    //将軍のフラグをfalseに
-                    Cards.Own_General_Effect = false;
-                    Cards.Other_General_Effect = false;
-                    break;
-
-                case 1:
-                    //デバッグ用
-                    Debug.Log("Owner: " + Cards.Own_Num);
-                    Debug.Log("Other: " + Cards.Other_Num);
-
-                    //お互いのカードの表示
-                    Cards.Owner_Card.text = "あなたは道化【" + Cards.Own_Num + "（将軍！）】を出しました。";
-                    Cards.Other_Card.text = "相手は姫【" + Cards.Other_Num + "（将軍！）】を出しました。";
-
-                    //結果メッセージ
-                    Cards.Big_or_Small.text = "NEXT BATTLE!?";
-
-                    //勝利数を持ち越し加算
-                    Cards.ADD_Win_Lose += 1;
-
-                    //自分の勝敗数表示
-                    Cards.Own_Win.text = "WIN : " + Cards.WIN_Count.ToString();
-                    Cards.Own_Lose.text = "LOSE : " + Cards.LOSE_Count.ToString();
-                    //相手の勝敗数表示
-                    Cards.Other_Win.text = "WIN : " + Cards.LOSE_Count.ToString();
-                    Cards.Other_Lose.text = "LOSE : " + Cards.WIN_Count.ToString();
-
-                    //将軍のフラグをfalseに
-                    Cards.Own_General_Effect = false;
-                    Cards.Other_General_Effect = false;
-                    break;
-
-                case 2:
-                    //デバッグ用
-                    Debug.Log("Owner: " + Cards.Own_Num);
-                    Debug.Log("Other: " + Cards.Other_Num);
-
-                    //お互いのカードの表示
-                    Cards.Owner_Card.text = "あなたは道化【" + Cards.Own_Num + "（将軍！）】を出しました。";
-                    Cards.Other_Card.text = "相手は密偵【" + Cards.Other_Num + "（将軍！）】を出しました。";
 
                     //結果メッセージ
                     Cards.Big_or_Small.text = "NEXT BATTLE!?";
@@ -178,74 +124,20 @@ public class ClownB : Photon.PunBehaviour
                     Cards.Spy_Effect = true;
                     break;
 
-                case 3:
+                case 1:
                     //デバッグ用
                     Debug.Log("Owner: " + Cards.Own_Num);
                     Debug.Log("Other: " + Cards.Other_Num);
 
                     //お互いのカードの表示
-                    Cards.Owner_Card.text = "あなたは道化【" + Cards.Own_Num + "（将軍！）】を出しました。";
-                    Cards.Other_Card.text = "相手は暗殺者【" + Cards.Other_Num + "（将軍！）】を出しました。";
+                    Cards.Owner_Card.text = "あなたは密偵【" + Cards.Own_Num + "（将軍！）】を出しました。";
+                    Cards.Other_Card.text = "相手は姫【" + Cards.Other_Num + "（将軍！）】を出しました。";
 
                     //結果メッセージ
-                    Cards.Big_or_Small.text = "NEXT BATTLE!?";
-
-                    //勝利数を持ち越し加算
-                    Cards.ADD_Win_Lose += 1;
-
-                    //自分の勝敗数表示
-                    Cards.Own_Win.text = "WIN : " + Cards.WIN_Count.ToString();
-                    Cards.Own_Lose.text = "LOSE : " + Cards.LOSE_Count.ToString();
-                    //相手の勝敗数表示
-                    Cards.Other_Win.text = "WIN : " + Cards.LOSE_Count.ToString();
-                    Cards.Other_Lose.text = "LOSE : " + Cards.WIN_Count.ToString();
-
-                    //将軍のフラグをfalseに
-                    Cards.Own_General_Effect = false;
-                    Cards.Other_General_Effect = false;
-                    break;
-
-                case 4:
-                    //デバッグ用
-                    Debug.Log("Owner: " + Cards.Own_Num);
-                    Debug.Log("Other: " + Cards.Other_Num);
-
-                    //お互いのカードの表示
-                    Cards.Owner_Card.text = "あなたは道化【" + Cards.Own_Num + "（将軍！）】を出しました。";
-                    Cards.Other_Card.text = "相手は大臣【" + Cards.Other_Num + "（将軍！）】を出しました。";
-
-                    //結果メッセージ
-                    Cards.Big_or_Small.text = "NEXT BATTLE!?";
-
-                    //勝利数を持ち越し加算
-                    Cards.ADD_Win_Lose += 1;
-
-                    //自分の勝敗数表示
-                    Cards.Own_Win.text = "WIN : " + Cards.WIN_Count.ToString();
-                    Cards.Own_Lose.text = "LOSE : " + Cards.LOSE_Count.ToString();
-                    //相手の勝敗数表示
-                    Cards.Other_Win.text = "WIN : " + Cards.LOSE_Count.ToString();
-                    Cards.Other_Lose.text = "LOSE : " + Cards.WIN_Count.ToString();
-
-                    //将軍のフラグをfalseに
-                    Cards.Own_General_Effect = false;
-                    Cards.Other_General_Effect = false;
-                    break;
-
-                case 5:
-                    //デバッグ用
-                    Debug.Log("Owner: " + Cards.Own_Num);
-                    Debug.Log("Other: " + Cards.Other_Num);
-
-                    //お互いのカードの表示
-                    Cards.Owner_Card.text = "あなたは道化【" + Cards.Own_Num + "（将軍！）】を出しました。";
-                    Cards.Other_Card.text = "相手は魔術師【" + Cards.Other_Num + "（将軍！）】を出しました。";
-
-                    //結果メッセージ
-                    Cards.Big_or_Small.text = "   YOU LOSE...";
+                    Cards.Big_or_Small.text = "     YOU WIN!";
 
                     //勝敗数を加算
-                    Cards.LOSE_Count += Cards.ADD_Win_Lose;
+                    Cards.WIN_Count += Cards.ADD_Win_Lose;
                     //勝敗加算を初期化
                     Cards.ADD_Win_Lose = 1;
 
@@ -259,19 +151,22 @@ public class ClownB : Photon.PunBehaviour
                     //将軍のフラグをfalseに
                     Cards.Own_General_Effect = false;
                     Cards.Other_General_Effect = false;
+
+                    //密偵のフラグをtrueに
+                    Cards.Spy_Effect = true;
                     break;
 
-                case 7:
+                case 2:
                     //デバッグ用
                     Debug.Log("Owner: " + Cards.Own_Num);
                     Debug.Log("Other: " + Cards.Other_Num);
 
                     //お互いのカードの表示
-                    Cards.Owner_Card.text = "あなたは道化【" + Cards.Own_Num + "（将軍！）】を出しました。";
-                    Cards.Other_Card.text = "相手は王子【" + Cards.Other_Num + "（将軍！）】を出しました。";
+                    Cards.Owner_Card.text = "あなたは密偵【" + Cards.Own_Num + "（将軍！）】を出しました。";
+                    Cards.Other_Card.text = "相手は密偵【" + Cards.Other_Num + "（将軍！）】を出しました。";
 
                     //結果メッセージ
-                    Cards.Big_or_Small.text = "NEXT BATTLE!?";
+                    Cards.Big_or_Small.text = "       DRAW!?";
 
                     //勝利数を持ち越し加算
                     Cards.ADD_Win_Lose += 1;
@@ -286,6 +181,134 @@ public class ClownB : Photon.PunBehaviour
                     //将軍のフラグをfalseに
                     Cards.Own_General_Effect = false;
                     Cards.Other_General_Effect = false;
+                    break;
+
+                case 3:
+                    //デバッグ用
+                    Debug.Log("Owner: " + Cards.Own_Num);
+                    Debug.Log("Other: " + Cards.Other_Num);
+
+                    //お互いのカードの表示
+                    Cards.Owner_Card.text = "あなたは密偵【" + Cards.Own_Num + "（将軍！）】を出しました。";
+                    Cards.Other_Card.text = "相手は暗殺者【" + Cards.Other_Num + "（将軍！）】を出しました。";
+
+                    //結果メッセージ
+                    Cards.Big_or_Small.text = "     YOU WIN!";
+
+                    //勝敗数を加算
+                    Cards.WIN_Count += Cards.ADD_Win_Lose;
+                    //勝敗加算を初期化
+                    Cards.ADD_Win_Lose = 1;
+
+                    //自分の勝敗数表示
+                    Cards.Own_Win.text = "WIN : " + Cards.WIN_Count.ToString();
+                    Cards.Own_Lose.text = "LOSE : " + Cards.LOSE_Count.ToString();
+                    //相手の勝敗数表示
+                    Cards.Other_Win.text = "WIN : " + Cards.LOSE_Count.ToString();
+                    Cards.Other_Lose.text = "LOSE : " + Cards.WIN_Count.ToString();
+
+                    //将軍のフラグをfalseに
+                    Cards.Own_General_Effect = false;
+                    Cards.Other_General_Effect = false;
+
+                    //密偵のフラグをtrueに
+                    Cards.Spy_Effect = true;
+                    break;
+
+                case 4:
+                    //デバッグ用
+                    Debug.Log("Owner: " + Cards.Own_Num);
+                    Debug.Log("Other: " + Cards.Other_Num);
+
+                    //お互いのカードの表示
+                    Cards.Owner_Card.text = "あなたは密偵【" + Cards.Own_Num + "（将軍！）】を出しました。";
+                    Cards.Other_Card.text = "相手は大臣【" + Cards.Other_Num + "（将軍！）】を出しました。";
+
+                    //結果メッセージ
+                    Cards.Big_or_Small.text = "   YOU LOSE...";
+
+                    //勝敗数を加算
+                    Cards.LOSE_Count = Cards.ADD_Win_Lose + 1;
+                    //勝敗加算を初期化
+                    Cards.ADD_Win_Lose = 1;
+
+                    //自分の勝敗数表示
+                    Cards.Own_Win.text = "WIN : " + Cards.WIN_Count.ToString();
+                    Cards.Own_Lose.text = "LOSE : " + Cards.LOSE_Count.ToString();
+                    //相手の勝敗数表示
+                    Cards.Other_Win.text = "WIN : " + Cards.LOSE_Count.ToString();
+                    Cards.Other_Lose.text = "LOSE : " + Cards.WIN_Count.ToString();
+
+                    //将軍のフラグをfalseに
+                    Cards.Own_General_Effect = false;
+                    Cards.Other_General_Effect = false;
+
+                    //密偵のフラグをtrueに
+                    Cards.Spy_Effect = true;
+                    break;
+
+                case 5:
+                    //デバッグ用
+                    Debug.Log("Owner: " + Cards.Own_Num);
+                    Debug.Log("Other: " + Cards.Other_Num);
+
+                    //お互いのカードの表示
+                    Cards.Owner_Card.text = "あなたは密偵【" + Cards.Own_Num + "（将軍！）】を出しました。";
+                    Cards.Other_Card.text = "相手は魔術師【" + Cards.Other_Num + "（将軍！）】を出しました。";
+
+                    //結果メッセージ
+                    Cards.Big_or_Small.text = "   YOU LOSE...";
+
+                    //勝敗数を加算
+                    Cards.LOSE_Count = Cards.ADD_Win_Lose;
+                    //勝敗加算を初期化
+                    Cards.ADD_Win_Lose = 1;
+
+                    //自分の勝敗数表示
+                    Cards.Own_Win.text = "WIN : " + Cards.WIN_Count.ToString();
+                    Cards.Own_Lose.text = "LOSE : " + Cards.LOSE_Count.ToString();
+                    //相手の勝敗数表示
+                    Cards.Other_Win.text = "WIN : " + Cards.LOSE_Count.ToString();
+                    Cards.Other_Lose.text = "LOSE : " + Cards.WIN_Count.ToString();
+
+                    //将軍のフラグをfalseに
+                    Cards.Own_General_Effect = false;
+                    Cards.Other_General_Effect = false;
+
+                    //密偵のフラグをtrueに
+                    Cards.Spy_Effect = true;
+                    break;
+
+                case 7:
+                    //デバッグ用
+                    Debug.Log("Owner: " + Cards.Own_Num);
+                    Debug.Log("Other: " + Cards.Other_Num);
+
+                    //お互いのカードの表示
+                    Cards.Owner_Card.text = "あなたは密偵【" + Cards.Own_Num + "（将軍！）】を出しました。";
+                    Cards.Other_Card.text = "相手は王子【" + Cards.Other_Num + "（将軍！）】を出しました。";
+
+                    //結果メッセージ
+                    Cards.Big_or_Small.text = "   YOU LOSE...";
+
+                    //勝敗数を加算
+                    Cards.LOSE_Count = Cards.ADD_Win_Lose;
+                    //勝敗加算を初期化
+                    Cards.ADD_Win_Lose = 1;
+
+                    //自分の勝敗数表示
+                    Cards.Own_Win.text = "WIN : " + Cards.WIN_Count.ToString();
+                    Cards.Own_Lose.text = "LOSE : " + Cards.LOSE_Count.ToString();
+                    //相手の勝敗数表示
+                    Cards.Other_Win.text = "WIN : " + Cards.LOSE_Count.ToString();
+                    Cards.Other_Lose.text = "LOSE : " + Cards.WIN_Count.ToString();
+
+                    //将軍のフラグをfalseに
+                    Cards.Own_General_Effect = false;
+                    Cards.Other_General_Effect = false;
+
+                    //密偵のフラグをtrueに
+                    Cards.Spy_Effect = true;
                     break;
             }
         }
@@ -301,54 +324,8 @@ public class ClownB : Photon.PunBehaviour
                     Debug.Log("Other: " + Cards.Other_Num);
 
                     //お互いのカードの表示
-                    Cards.Owner_Card.text = "あなたは道化【" + Cards.Own_Num + "】を出しました。";
+                    Cards.Owner_Card.text = "あなたは密偵【" + Cards.Own_Num + "】を出しました。";
                     Cards.Other_Card.text = "相手は道化【" + Cards.Other_Num + "】を出しました。";
-
-                    //結果メッセージ
-                    Cards.Big_or_Small.text = "NEXT BATTLE!?";
-
-                    //勝利数を持ち越し加算
-                    Cards.ADD_Win_Lose += 1;
-
-                    //自分の勝敗数表示
-                    Cards.Own_Win.text = "WIN : " + Cards.WIN_Count.ToString();
-                    Cards.Own_Lose.text = "LOSE : " + Cards.LOSE_Count.ToString();
-                    //相手の勝敗数表示
-                    Cards.Other_Win.text = "WIN : " + Cards.LOSE_Count.ToString();
-                    Cards.Other_Lose.text = "LOSE : " + Cards.WIN_Count.ToString();
-                    break;
-
-                case 1:
-                    //デバッグ用
-                    Debug.Log("Owner: " + Cards.Own_Num);
-                    Debug.Log("Other: " + Cards.Other_Num);
-
-                    //お互いのカードの表示
-                    Cards.Owner_Card.text = "あなたは道化【" + Cards.Own_Num + "】を出しました。";
-                    Cards.Other_Card.text = "相手は姫【" + Cards.Other_Num + "】を出しました。";
-
-                    //結果メッセージ
-                    Cards.Big_or_Small.text = "NEXT BATTLE!?";
-
-                    //勝利数を持ち越し加算
-                    Cards.ADD_Win_Lose += 1;
-
-                    //自分の勝敗数表示
-                    Cards.Own_Win.text = "WIN : " + Cards.WIN_Count.ToString();
-                    Cards.Own_Lose.text = "LOSE : " + Cards.LOSE_Count.ToString();
-                    //相手の勝敗数表示
-                    Cards.Other_Win.text = "WIN : " + Cards.LOSE_Count.ToString();
-                    Cards.Other_Lose.text = "LOSE : " + Cards.WIN_Count.ToString();
-                    break;
-
-                case 2:
-                    //デバッグ用
-                    Debug.Log("Owner: " + Cards.Own_Num);
-                    Debug.Log("Other: " + Cards.Other_Num);
-
-                    //お互いのカードの表示
-                    Cards.Owner_Card.text = "あなたは道化【" + Cards.Own_Num + "】を出しました。";
-                    Cards.Other_Card.text = "相手は密偵【" + Cards.Other_Num + "】を出しました。";
 
                     //結果メッセージ
                     Cards.Big_or_Small.text = "NEXT BATTLE!?";
@@ -367,66 +344,20 @@ public class ClownB : Photon.PunBehaviour
                     Cards.Spy_Effect = true;
                     break;
 
-                case 3:
+                case 1:
                     //デバッグ用
                     Debug.Log("Owner: " + Cards.Own_Num);
                     Debug.Log("Other: " + Cards.Other_Num);
 
                     //お互いのカードの表示
-                    Cards.Owner_Card.text = "あなたは道化【" + Cards.Own_Num + "】を出しました。";
-                    Cards.Other_Card.text = "相手は暗殺者【" + Cards.Other_Num + "】を出しました。";
+                    Cards.Owner_Card.text = "あなたは密偵【" + Cards.Own_Num + "】を出しました。";
+                    Cards.Other_Card.text = "相手は姫【" + Cards.Other_Num + "】を出しました。";
 
                     //結果メッセージ
-                    Cards.Big_or_Small.text = "NEXT BATTLE!?";
-
-                    //勝利数を持ち越し加算
-                    Cards.ADD_Win_Lose += 1;
-
-                    //自分の勝敗数表示
-                    Cards.Own_Win.text = "WIN : " + Cards.WIN_Count.ToString();
-                    Cards.Own_Lose.text = "LOSE : " + Cards.LOSE_Count.ToString();
-                    //相手の勝敗数表示
-                    Cards.Other_Win.text = "WIN : " + Cards.LOSE_Count.ToString();
-                    Cards.Other_Lose.text = "LOSE : " + Cards.WIN_Count.ToString();
-                    break;
-
-                case 4:
-                    //デバッグ用
-                    Debug.Log("Owner: " + Cards.Own_Num);
-                    Debug.Log("Other: " + Cards.Other_Num);
-
-                    //お互いのカードの表示
-                    Cards.Owner_Card.text = "あなたは道化【" + Cards.Own_Num + "】を出しました。";
-                    Cards.Other_Card.text = "相手は大臣【" + Cards.Other_Num + "】を出しました。";
-
-                    //結果メッセージ
-                    Cards.Big_or_Small.text = "NEXT BATTLE!?";
-
-                    //勝利数を持ち越し加算
-                    Cards.ADD_Win_Lose += 1;
-
-                    //自分の勝敗数表示
-                    Cards.Own_Win.text = "WIN : " + Cards.WIN_Count.ToString();
-                    Cards.Own_Lose.text = "LOSE : " + Cards.LOSE_Count.ToString();
-                    //相手の勝敗数表示
-                    Cards.Other_Win.text = "WIN : " + Cards.LOSE_Count.ToString();
-                    Cards.Other_Lose.text = "LOSE : " + Cards.WIN_Count.ToString();
-                    break;
-
-                case 5:
-                    //デバッグ用
-                    Debug.Log("Owner: " + Cards.Own_Num);
-                    Debug.Log("Other: " + Cards.Other_Num);
-
-                    //お互いのカードの表示
-                    Cards.Owner_Card.text = "あなたは道化【" + Cards.Own_Num + "】を出しました。";
-                    Cards.Other_Card.text = "相手は魔術師【" + Cards.Other_Num + "】を出しました。";
-
-                    //結果メッセージ
-                    Cards.Big_or_Small.text = "   YOU LOSE...";
+                    Cards.Big_or_Small.text = "     YOU WIN!";
 
                     //勝敗数を加算
-                    Cards.LOSE_Count += Cards.ADD_Win_Lose;
+                    Cards.WIN_Count += Cards.ADD_Win_Lose;
                     //勝敗加算を初期化
                     Cards.ADD_Win_Lose = 1;
 
@@ -436,6 +367,116 @@ public class ClownB : Photon.PunBehaviour
                     //相手の勝敗数表示
                     Cards.Other_Win.text = "WIN : " + Cards.LOSE_Count.ToString();
                     Cards.Other_Lose.text = "LOSE : " + Cards.WIN_Count.ToString();
+
+                    //密偵のフラグをtrueに
+                    Cards.Spy_Effect = true;
+                    break;
+
+                case 2:
+                    //デバッグ用
+                    Debug.Log("Owner: " + Cards.Own_Num);
+                    Debug.Log("Other: " + Cards.Other_Num);
+
+                    //お互いのカードの表示
+                    Cards.Owner_Card.text = "あなたは密偵【" + Cards.Own_Num + "】を出しました。";
+                    Cards.Other_Card.text = "相手は密偵【" + Cards.Other_Num + "】を出しました。";
+
+                    //結果メッセージ
+                    Cards.Big_or_Small.text = "       DRAW!?";
+
+                    //勝利数を持ち越し加算
+                    Cards.ADD_Win_Lose += 1;
+
+                    //自分の勝敗数表示
+                    Cards.Own_Win.text = "WIN : " + Cards.WIN_Count.ToString();
+                    Cards.Own_Lose.text = "LOSE : " + Cards.LOSE_Count.ToString();
+                    //相手の勝敗数表示
+                    Cards.Other_Win.text = "WIN : " + Cards.LOSE_Count.ToString();
+                    Cards.Other_Lose.text = "LOSE : " + Cards.WIN_Count.ToString();
+                    break;
+
+                case 3:
+                    //デバッグ用
+                    Debug.Log("Owner: " + Cards.Own_Num);
+                    Debug.Log("Other: " + Cards.Other_Num);
+
+                    //お互いのカードの表示
+                    Cards.Owner_Card.text = "あなたは密偵【" + Cards.Own_Num + "】を出しました。";
+                    Cards.Other_Card.text = "相手は暗殺者【" + Cards.Other_Num + "】を出しました。";
+
+                    //結果メッセージ
+                    Cards.Big_or_Small.text = "     YOU WIN!";
+
+                    //勝敗数を加算
+                    Cards.WIN_Count += Cards.ADD_Win_Lose;
+                    //勝敗加算を初期化
+                    Cards.ADD_Win_Lose = 1;
+
+                    //自分の勝敗数表示
+                    Cards.Own_Win.text = "WIN : " + Cards.WIN_Count.ToString();
+                    Cards.Own_Lose.text = "LOSE : " + Cards.LOSE_Count.ToString();
+                    //相手の勝敗数表示
+                    Cards.Other_Win.text = "WIN : " + Cards.LOSE_Count.ToString();
+                    Cards.Other_Lose.text = "LOSE : " + Cards.WIN_Count.ToString();
+
+                    //密偵のフラグをtrueに
+                    Cards.Spy_Effect = true;
+                    break;
+
+                case 4:
+                    //デバッグ用
+                    Debug.Log("Owner: " + Cards.Own_Num);
+                    Debug.Log("Other: " + Cards.Other_Num);
+
+                    //お互いのカードの表示
+                    Cards.Owner_Card.text = "あなたは密偵【" + Cards.Own_Num + "】を出しました。";
+                    Cards.Other_Card.text = "相手は大臣【" + Cards.Other_Num + "】を出しました。";
+
+                    //結果メッセージ
+                    Cards.Big_or_Small.text = "   YOU LOSE...";
+
+                    //勝敗数を加算
+                    Cards.LOSE_Count = Cards.ADD_Win_Lose + 1;
+                    //勝敗加算を初期化
+                    Cards.ADD_Win_Lose = 1;
+
+                    //自分の勝敗数表示
+                    Cards.Own_Win.text = "WIN : " + Cards.WIN_Count.ToString();
+                    Cards.Own_Lose.text = "LOSE : " + Cards.LOSE_Count.ToString();
+                    //相手の勝敗数表示
+                    Cards.Other_Win.text = "WIN : " + Cards.LOSE_Count.ToString();
+                    Cards.Other_Lose.text = "LOSE : " + Cards.WIN_Count.ToString();
+
+                    //密偵のフラグをtrueに
+                    Cards.Spy_Effect = true;
+                    break;
+
+                case 5:
+                    //デバッグ用
+                    Debug.Log("Owner: " + Cards.Own_Num);
+                    Debug.Log("Other: " + Cards.Other_Num);
+
+                    //お互いのカードの表示
+                    Cards.Owner_Card.text = "あなたは密偵【" + Cards.Own_Num + "】を出しました。";
+                    Cards.Other_Card.text = "相手は魔術師【" + Cards.Other_Num + "】を出しました。";
+
+                    //結果メッセージ
+                    Cards.Big_or_Small.text = "   YOU LOSE...";
+
+                    //勝敗数を加算
+                    Cards.LOSE_Count = Cards.ADD_Win_Lose;
+                    //勝敗加算を初期化
+                    Cards.ADD_Win_Lose = 1;
+
+                    //自分の勝敗数表示
+                    Cards.Own_Win.text = "WIN : " + Cards.WIN_Count.ToString();
+                    Cards.Own_Lose.text = "LOSE : " + Cards.LOSE_Count.ToString();
+                    //相手の勝敗数表示
+                    Cards.Other_Win.text = "WIN : " + Cards.LOSE_Count.ToString();
+                    Cards.Other_Lose.text = "LOSE : " + Cards.WIN_Count.ToString();
+
+                    //密偵のフラグをtrueに
+                    Cards.Spy_Effect = true;
                     break;
 
                 case 6:
@@ -444,14 +485,16 @@ public class ClownB : Photon.PunBehaviour
                     Debug.Log("Other: " + Cards.Other_Num);
 
                     //お互いのカードの表示
-                    Cards.Owner_Card.text = "あなたは道化【" + Cards.Own_Num + "】を出しました。";
+                    Cards.Owner_Card.text = "あなたは密偵【" + Cards.Own_Num + "】を出しました。";
                     Cards.Other_Card.text = "相手は将軍【" + Cards.Other_Num + "】を出しました。";
 
                     //結果メッセージ
-                    Cards.Big_or_Small.text = "NEXT BATTLE!?";
+                    Cards.Big_or_Small.text = "   YOU LOSE...";
 
-                    //勝利数を持ち越し加算
-                    Cards.ADD_Win_Lose += 1;
+                    //勝敗数を加算
+                    Cards.LOSE_Count = Cards.ADD_Win_Lose;
+                    //勝敗加算を初期化
+                    Cards.ADD_Win_Lose = 1;
 
                     //自分の勝敗数表示
                     Cards.Own_Win.text = "WIN : " + Cards.WIN_Count.ToString();
@@ -460,8 +503,11 @@ public class ClownB : Photon.PunBehaviour
                     Cards.Other_Win.text = "WIN : " + Cards.LOSE_Count.ToString();
                     Cards.Other_Lose.text = "LOSE : " + Cards.WIN_Count.ToString();
 
-                    //将軍のフラグをtrueに
+                    //相手の将軍のフラグをtrueに
                     Cards.Other_General_Effect = true;
+
+                    //密偵のフラグをtrueに
+                    Cards.Spy_Effect = true;
                     break;
 
                 case 7:
@@ -470,14 +516,16 @@ public class ClownB : Photon.PunBehaviour
                     Debug.Log("Other: " + Cards.Other_Num);
 
                     //お互いのカードの表示
-                    Cards.Owner_Card.text = "あなたは道化【" + Cards.Own_Num + "】を出しました。";
+                    Cards.Owner_Card.text = "あなたは密偵【" + Cards.Own_Num + "】を出しました。";
                     Cards.Other_Card.text = "相手は王子【" + Cards.Other_Num + "】を出しました。";
 
                     //結果メッセージ
-                    Cards.Big_or_Small.text = "NEXT BATTLE!?";
+                    Cards.Big_or_Small.text = "   YOU LOSE...";
 
-                    //勝利数を持ち越し加算
-                    Cards.ADD_Win_Lose += 1;
+                    //勝敗数を加算
+                    Cards.LOSE_Count = Cards.ADD_Win_Lose;
+                    //勝敗加算を初期化
+                    Cards.ADD_Win_Lose = 1;
 
                     //自分の勝敗数表示
                     Cards.Own_Win.text = "WIN : " + Cards.WIN_Count.ToString();
@@ -485,6 +533,9 @@ public class ClownB : Photon.PunBehaviour
                     //相手の勝敗数表示
                     Cards.Other_Win.text = "WIN : " + Cards.LOSE_Count.ToString();
                     Cards.Other_Lose.text = "LOSE : " + Cards.WIN_Count.ToString();
+
+                    //密偵のフラグをtrueに
+                    Cards.Spy_Effect = true;
                     break;
             }
         }
@@ -500,60 +551,8 @@ public class ClownB : Photon.PunBehaviour
                     Debug.Log("Other: " + Cards.Other_Num);
 
                     //お互いのカードの表示
-                    Cards.Owner_Card.text = "あなたは道化【" + Cards.Own_Num + "（将軍！）】を出しました。";
+                    Cards.Owner_Card.text = "あなたは密偵【" + Cards.Own_Num + "（将軍！）】を出しました。";
                     Cards.Other_Card.text = "相手は道化【" + Cards.Other_Num + "】を出しました。";
-
-                    //結果メッセージ
-                    Cards.Big_or_Small.text = "NEXT BATTLE!?";
-
-                    //勝利数を持ち越し加算
-                    Cards.ADD_Win_Lose += 1;
-
-                    //自分の勝敗数表示
-                    Cards.Own_Win.text = "WIN : " + Cards.WIN_Count.ToString();
-                    Cards.Own_Lose.text = "LOSE : " + Cards.LOSE_Count.ToString();
-                    //相手の勝敗数表示
-                    Cards.Other_Win.text = "WIN : " + Cards.LOSE_Count.ToString();
-                    Cards.Other_Lose.text = "LOSE : " + Cards.WIN_Count.ToString();
-
-                    //自分の将軍のフラグをfalseに
-                    Cards.Own_General_Effect = false;
-                    break;
-
-                case 1:
-                    //デバッグ用
-                    Debug.Log("Owner: " + Cards.Own_Num);
-                    Debug.Log("Other: " + Cards.Other_Num);
-
-                    //お互いのカードの表示
-                    Cards.Owner_Card.text = "あなたは道化【" + Cards.Own_Num + "（将軍！）】を出しました。";
-                    Cards.Other_Card.text = "相手は姫【" + Cards.Other_Num + "】を出しました。";
-
-                    //結果メッセージ
-                    Cards.Big_or_Small.text = "NEXT BATTLE!?";
-
-                    //勝利数を持ち越し加算
-                    Cards.ADD_Win_Lose += 1;
-
-                    //自分の勝敗数表示
-                    Cards.Own_Win.text = "WIN : " + Cards.WIN_Count.ToString();
-                    Cards.Own_Lose.text = "LOSE : " + Cards.LOSE_Count.ToString();
-                    //相手の勝敗数表示
-                    Cards.Other_Win.text = "WIN : " + Cards.LOSE_Count.ToString();
-                    Cards.Other_Lose.text = "LOSE : " + Cards.WIN_Count.ToString();
-
-                    //自分の将軍のフラグをfalseに
-                    Cards.Own_General_Effect = false;
-                    break;
-
-                case 2:
-                    //デバッグ用
-                    Debug.Log("Owner: " + Cards.Own_Num);
-                    Debug.Log("Other: " + Cards.Other_Num);
-
-                    //お互いのカードの表示
-                    Cards.Owner_Card.text = "あなたは道化【" + Cards.Own_Num + "（将軍！）】を出しました。";
-                    Cards.Other_Card.text = "相手は密偵【" + Cards.Other_Num + "】を出しました。";
 
                     //結果メッセージ
                     Cards.Big_or_Small.text = "NEXT BATTLE!?";
@@ -575,72 +574,51 @@ public class ClownB : Photon.PunBehaviour
                     Cards.Spy_Effect = true;
                     break;
 
-                case 3:
+                case 1:
                     //デバッグ用
                     Debug.Log("Owner: " + Cards.Own_Num);
                     Debug.Log("Other: " + Cards.Other_Num);
 
                     //お互いのカードの表示
-                    Cards.Owner_Card.text = "あなたは道化【" + Cards.Own_Num + "（将軍！）】を出しました。";
-                    Cards.Other_Card.text = "相手は暗殺者【" + Cards.Other_Num + "】を出しました。";
+                    Cards.Owner_Card.text = "あなたは密偵【" + Cards.Own_Num + "（将軍！）】を出しました。";
+                    Cards.Other_Card.text = "相手は姫【" + Cards.Other_Num + "】を出しました。";
 
                     //結果メッセージ
-                    Cards.Big_or_Small.text = "NEXT BATTLE!?";
-
-                    //勝利数を持ち越し加算
-                    Cards.ADD_Win_Lose += 1;
-
-                    //自分の勝敗数表示
-                    Cards.Own_Win.text = "WIN : " + Cards.WIN_Count.ToString();
-                    Cards.Own_Lose.text = "LOSE : " + Cards.LOSE_Count.ToString();
-                    //相手の勝敗数表示
-                    Cards.Other_Win.text = "WIN : " + Cards.LOSE_Count.ToString();
-                    Cards.Other_Lose.text = "LOSE : " + Cards.WIN_Count.ToString();
-
-                    //自分の将軍のフラグをfalseに
-                    Cards.Own_General_Effect = false;
-                    break;
-
-                case 4:
-                    //デバッグ用
-                    Debug.Log("Owner: " + Cards.Own_Num);
-                    Debug.Log("Other: " + Cards.Other_Num);
-
-                    //お互いのカードの表示
-                    Cards.Owner_Card.text = "あなたは道化【" + Cards.Own_Num + "（将軍！）】を出しました。";
-                    Cards.Other_Card.text = "相手は大臣【" + Cards.Other_Num + "】を出しました。";
-
-                    //結果メッセージ
-                    Cards.Big_or_Small.text = "NEXT BATTLE!?";
-
-                    //勝利数を持ち越し加算
-                    Cards.ADD_Win_Lose += 1;
-
-                    //自分の勝敗数表示
-                    Cards.Own_Win.text = "WIN : " + Cards.WIN_Count.ToString();
-                    Cards.Own_Lose.text = "LOSE : " + Cards.LOSE_Count.ToString();
-                    //相手の勝敗数表示
-                    Cards.Other_Win.text = "WIN : " + Cards.LOSE_Count.ToString();
-                    Cards.Other_Lose.text = "LOSE : " + Cards.WIN_Count.ToString();
-
-                    //自分の将軍のフラグをfalseに
-                    Cards.Own_General_Effect = false;
-                    break;
-
-                case 5:
-                    //デバッグ用
-                    Debug.Log("Owner: " + Cards.Own_Num);
-                    Debug.Log("Other: " + Cards.Other_Num);
-
-                    //お互いのカードの表示
-                    Cards.Owner_Card.text = "あなたは道化【" + Cards.Own_Num + "（将軍！）】を出しました。";
-                    Cards.Other_Card.text = "相手は魔術師【" + Cards.Other_Num + "】を出しました。";
-
-                    //結果メッセージ
-                    Cards.Big_or_Small.text = "   YOU LOSE...";
+                    Cards.Big_or_Small.text = "     YOU WIN!";
 
                     //勝敗数を加算
-                    Cards.LOSE_Count += Cards.ADD_Win_Lose;
+                    Cards.WIN_Count += Cards.ADD_Win_Lose;
+                    //勝敗加算を初期化
+                    Cards.ADD_Win_Lose = 1;
+
+                    //自分の勝敗数表示
+                    Cards.Own_Win.text = "WIN : " + Cards.WIN_Count.ToString();
+                    Cards.Own_Lose.text = "LOSE : " + Cards.LOSE_Count.ToString();
+                    //相手の勝敗数表示
+                    Cards.Other_Win.text = "WIN : " + Cards.LOSE_Count.ToString();
+                    Cards.Other_Lose.text = "LOSE : " + Cards.WIN_Count.ToString();
+
+                    //自分の将軍のフラグをfalseに
+                    Cards.Own_General_Effect = false;
+
+                    //密偵のフラグをtrueに
+                    Cards.Spy_Effect = true;
+                    break;
+
+                case 2:
+                    //デバッグ用
+                    Debug.Log("Owner: " + Cards.Own_Num);
+                    Debug.Log("Other: " + Cards.Other_Num);
+
+                    //お互いのカードの表示
+                    Cards.Owner_Card.text = "あなたは密偵【" + Cards.Own_Num + "（将軍！）】を出しました。";
+                    Cards.Other_Card.text = "相手は密偵【" + Cards.Other_Num + "】を出しました。";
+
+                    //結果メッセージ
+                    Cards.Big_or_Small.text = "     YOU WIN!";
+
+                    //勝敗数を加算
+                    Cards.WIN_Count += Cards.ADD_Win_Lose;
                     //勝敗加算を初期化
                     Cards.ADD_Win_Lose = 1;
 
@@ -655,20 +633,113 @@ public class ClownB : Photon.PunBehaviour
                     Cards.Own_General_Effect = false;
                     break;
 
+                case 3:
+                    //デバッグ用
+                    Debug.Log("Owner: " + Cards.Own_Num);
+                    Debug.Log("Other: " + Cards.Other_Num);
+
+                    //お互いのカードの表示
+                    Cards.Owner_Card.text = "あなたは密偵【" + Cards.Own_Num + "（将軍！）】を出しました。";
+                    Cards.Other_Card.text = "相手は暗殺者【" + Cards.Other_Num + "】を出しました。";
+
+                    //結果メッセージ
+                    Cards.Big_or_Small.text = "   YOU LOSE...";
+
+                    //勝敗数を加算
+                    Cards.LOSE_Count = Cards.ADD_Win_Lose;
+                    //勝敗加算を初期化
+                    Cards.ADD_Win_Lose = 1;
+
+                    //自分の勝敗数表示
+                    Cards.Own_Win.text = "WIN : " + Cards.WIN_Count.ToString();
+                    Cards.Own_Lose.text = "LOSE : " + Cards.LOSE_Count.ToString();
+                    //相手の勝敗数表示
+                    Cards.Other_Win.text = "WIN : " + Cards.LOSE_Count.ToString();
+                    Cards.Other_Lose.text = "LOSE : " + Cards.WIN_Count.ToString();
+
+                    //自分の将軍のフラグをfalseに
+                    Cards.Own_General_Effect = false;
+
+                    //密偵のフラグをtrueに
+                    Cards.Spy_Effect = true;
+                    break;
+
+                case 4:
+                    //デバッグ用
+                    Debug.Log("Owner: " + Cards.Own_Num);
+                    Debug.Log("Other: " + Cards.Other_Num);
+
+                    //お互いのカードの表示
+                    Cards.Owner_Card.text = "あなたは密偵【" + Cards.Own_Num + "（将軍！）】を出しました。";
+                    Cards.Other_Card.text = "相手は大臣【" + Cards.Other_Num + "】を出しました。";
+
+                    //結果メッセージ
+                    Cards.Big_or_Small.text = "       DRAW!?";
+
+                    //勝利数を持ち越し加算
+                    Cards.ADD_Win_Lose += 1;
+
+                    //自分の勝敗数表示
+                    Cards.Own_Win.text = "WIN : " + Cards.WIN_Count.ToString();
+                    Cards.Own_Lose.text = "LOSE : " + Cards.LOSE_Count.ToString();
+                    //相手の勝敗数表示
+                    Cards.Other_Win.text = "WIN : " + Cards.LOSE_Count.ToString();
+                    Cards.Other_Lose.text = "LOSE : " + Cards.WIN_Count.ToString();
+
+                    //自分の将軍のフラグをfalseに
+                    Cards.Own_General_Effect = false;
+
+                    //密偵のフラグをtrueに
+                    Cards.Spy_Effect = true;
+                    break;
+
+                case 5:
+                    //デバッグ用
+                    Debug.Log("Owner: " + Cards.Own_Num);
+                    Debug.Log("Other: " + Cards.Other_Num);
+
+                    //お互いのカードの表示
+                    Cards.Owner_Card.text = "あなたは密偵【" + Cards.Own_Num + "（将軍！）】を出しました。";
+                    Cards.Other_Card.text = "相手は魔術師【" + Cards.Other_Num + "】を出しました。";
+
+                    //結果メッセージ
+                    Cards.Big_or_Small.text = "   YOU LOSE...";
+
+                    //勝敗数を加算
+                    Cards.LOSE_Count = Cards.ADD_Win_Lose;
+                    //勝敗加算を初期化
+                    Cards.ADD_Win_Lose = 1;
+
+                    //自分の勝敗数表示
+                    Cards.Own_Win.text = "WIN : " + Cards.WIN_Count.ToString();
+                    Cards.Own_Lose.text = "LOSE : " + Cards.LOSE_Count.ToString();
+                    //相手の勝敗数表示
+                    Cards.Other_Win.text = "WIN : " + Cards.LOSE_Count.ToString();
+                    Cards.Other_Lose.text = "LOSE : " + Cards.WIN_Count.ToString();
+
+                    //自分の将軍のフラグをfalseに
+                    Cards.Own_General_Effect = false;
+
+                    //密偵のフラグをtrueに
+                    Cards.Spy_Effect = true;
+                    break;
+
                 case 6:
                     //デバッグ用
                     Debug.Log("Owner: " + Cards.Own_Num);
                     Debug.Log("Other: " + Cards.Other_Num);
 
                     //お互いのカードの表示
-                    Cards.Owner_Card.text = "あなたは道化【" + Cards.Own_Num + "（将軍！）】を出しました。";
+                    Cards.Owner_Card.text = "あなたは密偵【" + Cards.Own_Num + "（将軍！）】を出しました。";
                     Cards.Other_Card.text = "相手は将軍【" + Cards.Other_Num + "】を出しました。";
 
                     //結果メッセージ
-                    Cards.Big_or_Small.text = "NEXT BATTLE!?";
+                    Cards.Big_or_Small.text = "   YOU LOSE...";
 
-                    //勝利数を持ち越し加算
-                    Cards.ADD_Win_Lose += 1;
+                    //勝敗数を加算
+                    Cards.LOSE_Count = Cards.ADD_Win_Lose;
+                    //勝敗加算を初期化
+                    Cards.ADD_Win_Lose = 1;
 
                     //自分の勝敗数表示
                     Cards.Own_Win.text = "WIN : " + Cards.WIN_Count.ToString();
@@ -682,6 +753,9 @@ public class ClownB : Photon.PunBehaviour
 
                     //相手の将軍のフラグをtrueに
                     Cards.Other_General_Effect = true;
+
+                    //密偵のフラグをtrueに
+                    Cards.Spy_Effect = true;
                     break;
 
                 case 7:
@@ -690,14 +764,16 @@ public class ClownB : Photon.PunBehaviour
                     Debug.Log("Other: " + Cards.Other_Num);
 
                     //お互いのカードの表示
-                    Cards.Owner_Card.text = "あなたは道化【" + Cards.Own_Num + "（将軍！）】を出しました。";
+                    Cards.Owner_Card.text = "あなたは密偵【" + Cards.Own_Num + "（将軍！）】を出しました。";
                     Cards.Other_Card.text = "相手は王子【" + Cards.Other_Num + "】を出しました。";
 
                     //結果メッセージ
-                    Cards.Big_or_Small.text = "NEXT BATTLE!?";
+                    Cards.Big_or_Small.text = "   YOU LOSE...";
 
-                    //勝利数を持ち越し加算
-                    Cards.ADD_Win_Lose += 1;
+                    //勝敗数を加算
+                    Cards.LOSE_Count = Cards.ADD_Win_Lose;
+                    //勝敗加算を初期化
+                    Cards.ADD_Win_Lose = 1;
 
                     //自分の勝敗数表示
                     Cards.Own_Win.text = "WIN : " + Cards.WIN_Count.ToString();
@@ -708,6 +784,9 @@ public class ClownB : Photon.PunBehaviour
 
                     //自分の将軍のフラグをfalseに
                     Cards.Own_General_Effect = false;
+
+                    //密偵のフラグをtrueに
+                    Cards.Spy_Effect = true;
                     break;
             }
         }
@@ -723,7 +802,7 @@ public class ClownB : Photon.PunBehaviour
                     Debug.Log("Other: " + Cards.Other_Num);
 
                     //お互いのカードの表示
-                    Cards.Owner_Card.text = "あなたは道化【" + Cards.Own_Num + "】を出しました。";
+                    Cards.Owner_Card.text = "あなたは密偵【" + Cards.Own_Num + "】を出しました。";
                     Cards.Other_Card.text = "相手は道化【" + Cards.Other_Num + "（将軍！）】を出しました。";
 
                     //結果メッセージ
@@ -741,6 +820,9 @@ public class ClownB : Photon.PunBehaviour
 
                     //相手の将軍のフラグをfalseに
                     Cards.Other_General_Effect = false;
+
+                    //密偵のフラグをtrueに
+                    Cards.Spy_Effect = true;
                     break;
 
                 case 1:
@@ -749,40 +831,16 @@ public class ClownB : Photon.PunBehaviour
                     Debug.Log("Other: " + Cards.Other_Num);
 
                     //お互いのカードの表示
-                    Cards.Owner_Card.text = "あなたは道化【" + Cards.Own_Num + "】を出しました。";
+                    Cards.Owner_Card.text = "あなたは密偵【" + Cards.Own_Num + "】を出しました。";
                     Cards.Other_Card.text = "相手は姫【" + Cards.Other_Num + "（将軍！）】を出しました。";
 
                     //結果メッセージ
-                    Cards.Big_or_Small.text = "NEXT BATTLE!?";
+                    Cards.Big_or_Small.text = "   YOU LOSE...";
 
-                    //勝利数を持ち越し加算
-                    Cards.ADD_Win_Lose += 1;
-
-                    //自分の勝敗数表示
-                    Cards.Own_Win.text = "WIN : " + Cards.WIN_Count.ToString();
-                    Cards.Own_Lose.text = "LOSE : " + Cards.LOSE_Count.ToString();
-                    //相手の勝敗数表示
-                    Cards.Other_Win.text = "WIN : " + Cards.LOSE_Count.ToString();
-                    Cards.Other_Lose.text = "LOSE : " + Cards.WIN_Count.ToString();
-
-                    //相手の将軍のフラグをfalseに
-                    Cards.Other_General_Effect = false;
-                    break;
-
-                case 2:
-                    //デバッグ用
-                    Debug.Log("Owner: " + Cards.Own_Num);
-                    Debug.Log("Other: " + Cards.Other_Num);
-
-                    //お互いのカードの表示
-                    Cards.Owner_Card.text = "あなたは道化【" + Cards.Own_Num + "】を出しました。";
-                    Cards.Other_Card.text = "相手は密偵【" + Cards.Other_Num + "（将軍！）】を出しました。";
-
-                    //結果メッセージ
-                    Cards.Big_or_Small.text = "NEXT BATTLE!?";
-
-                    //勝利数を持ち越し加算
-                    Cards.ADD_Win_Lose += 1;
+                    //勝敗数を加算
+                    Cards.LOSE_Count = Cards.ADD_Win_Lose + 1;
+                    //勝敗加算を初期化
+                    Cards.ADD_Win_Lose = 1;
 
                     //自分の勝敗数表示
                     Cards.Own_Win.text = "WIN : " + Cards.WIN_Count.ToString();
@@ -798,72 +856,20 @@ public class ClownB : Photon.PunBehaviour
                     Cards.Spy_Effect = true;
                     break;
 
-                case 3:
+                case 2:
                     //デバッグ用
                     Debug.Log("Owner: " + Cards.Own_Num);
                     Debug.Log("Other: " + Cards.Other_Num);
 
                     //お互いのカードの表示
-                    Cards.Owner_Card.text = "あなたは道化【" + Cards.Own_Num + "】を出しました。";
-                    Cards.Other_Card.text = "相手は暗殺者【" + Cards.Other_Num + "（将軍！）】を出しました。";
-
-                    //結果メッセージ
-                    Cards.Big_or_Small.text = "NEXT BATTLE!?";
-
-                    //勝利数を持ち越し加算
-                    Cards.ADD_Win_Lose += 1;
-
-                    //自分の勝敗数表示
-                    Cards.Own_Win.text = "WIN : " + Cards.WIN_Count.ToString();
-                    Cards.Own_Lose.text = "LOSE : " + Cards.LOSE_Count.ToString();
-                    //相手の勝敗数表示
-                    Cards.Other_Win.text = "WIN : " + Cards.LOSE_Count.ToString();
-                    Cards.Other_Lose.text = "LOSE : " + Cards.WIN_Count.ToString();
-
-                    //相手の将軍のフラグをfalseに
-                    Cards.Other_General_Effect = false;
-                    break;
-
-                case 4:
-                    //デバッグ用
-                    Debug.Log("Owner: " + Cards.Own_Num);
-                    Debug.Log("Other: " + Cards.Other_Num);
-
-                    //お互いのカードの表示
-                    Cards.Owner_Card.text = "あなたは道化【" + Cards.Own_Num + "】を出しました。";
-                    Cards.Other_Card.text = "相手は大臣【" + Cards.Other_Num + "（将軍！）】を出しました。";
-
-                    //結果メッセージ
-                    Cards.Big_or_Small.text = "NEXT BATTLE!?";
-
-                    //勝利数を持ち越し加算
-                    Cards.ADD_Win_Lose += 1;
-
-                    //自分の勝敗数表示
-                    Cards.Own_Win.text = "WIN : " + Cards.WIN_Count.ToString();
-                    Cards.Own_Lose.text = "LOSE : " + Cards.LOSE_Count.ToString();
-                    //相手の勝敗数表示
-                    Cards.Other_Win.text = "WIN : " + Cards.LOSE_Count.ToString();
-                    Cards.Other_Lose.text = "LOSE : " + Cards.WIN_Count.ToString();
-
-                    //相手の将軍のフラグをfalseに
-                    Cards.Other_General_Effect = false;
-                    break;
-
-                case 5:
-                    //デバッグ用
-                    Debug.Log("Owner: " + Cards.Own_Num);
-                    Debug.Log("Other: " + Cards.Other_Num);
-
-                    //お互いのカードの表示
-                    Cards.Owner_Card.text = "あなたは道化【" + Cards.Own_Num + "】を出しました。";
-                    Cards.Other_Card.text = "相手は魔術師【" + Cards.Other_Num + "（将軍！）】を出しました。";
+                    Cards.Owner_Card.text = "あなたは密偵【" + Cards.Own_Num + "】を出しました。";
+                    Cards.Other_Card.text = "相手は密偵【" + Cards.Other_Num + "（将軍！）】を出しました。";
 
                     //結果メッセージ
                     Cards.Big_or_Small.text = "   YOU LOSE...";
 
                     //勝敗数を加算
-                    Cards.LOSE_Count += Cards.ADD_Win_Lose;
+                    Cards.LOSE_Count = Cards.ADD_Win_Lose + 1;
                     //勝敗加算を初期化
                     Cards.ADD_Win_Lose = 1;
 
@@ -878,20 +884,22 @@ public class ClownB : Photon.PunBehaviour
                     Cards.Other_General_Effect = false;
                     break;
 
-                case 7:
+                case 3:
                     //デバッグ用
                     Debug.Log("Owner: " + Cards.Own_Num);
                     Debug.Log("Other: " + Cards.Other_Num);
 
                     //お互いのカードの表示
-                    Cards.Owner_Card.text = "あなたは道化【" + Cards.Own_Num + "】を出しました。";
-                    Cards.Other_Card.text = "相手は王子【" + Cards.Other_Num + "（将軍！）】を出しました。";
+                    Cards.Owner_Card.text = "あなたは密偵【" + Cards.Own_Num + "】を出しました。";
+                    Cards.Other_Card.text = "相手は暗殺者【" + Cards.Other_Num + "（将軍！）】を出しました。";
 
                     //結果メッセージ
-                    Cards.Big_or_Small.text = "NEXT BATTLE!?";
+                    Cards.Big_or_Small.text = "     YOU WIN!";
 
-                    //勝利数を持ち越し加算
-                    Cards.ADD_Win_Lose += 1;
+                    //勝敗数を加算
+                    Cards.WIN_Count += Cards.ADD_Win_Lose;
+                    //勝敗加算を初期化
+                    Cards.ADD_Win_Lose = 1;
 
                     //自分の勝敗数表示
                     Cards.Own_Win.text = "WIN : " + Cards.WIN_Count.ToString();
@@ -902,6 +910,102 @@ public class ClownB : Photon.PunBehaviour
 
                     //相手の将軍のフラグをfalseに
                     Cards.Other_General_Effect = false;
+
+                    //密偵のフラグをtrueに
+                    Cards.Spy_Effect = true;
+                    break;
+
+                case 4:
+                    //デバッグ用
+                    Debug.Log("Owner: " + Cards.Own_Num);
+                    Debug.Log("Other: " + Cards.Other_Num);
+
+                    //お互いのカードの表示
+                    Cards.Owner_Card.text = "あなたは密偵【" + Cards.Own_Num + "】を出しました。";
+                    Cards.Other_Card.text = "相手は大臣【" + Cards.Other_Num + "（将軍！）】を出しました。";
+
+                    //結果メッセージ
+                    Cards.Big_or_Small.text = "   YOU LOSE...";
+
+                    //勝敗数を加算
+                    Cards.LOSE_Count = Cards.ADD_Win_Lose + 1;
+                    //勝敗加算を初期化
+                    Cards.ADD_Win_Lose = 1;
+
+                    //自分の勝敗数表示
+                    Cards.Own_Win.text = "WIN : " + Cards.WIN_Count.ToString();
+                    Cards.Own_Lose.text = "LOSE : " + Cards.LOSE_Count.ToString();
+                    //相手の勝敗数表示
+                    Cards.Other_Win.text = "WIN : " + Cards.LOSE_Count.ToString();
+                    Cards.Other_Lose.text = "LOSE : " + Cards.WIN_Count.ToString();
+
+                    //相手の将軍のフラグをfalseに
+                    Cards.Other_General_Effect = false;
+
+                    //密偵のフラグをtrueに
+                    Cards.Spy_Effect = true;
+                    break;
+
+                case 5:
+                    //デバッグ用
+                    Debug.Log("Owner: " + Cards.Own_Num);
+                    Debug.Log("Other: " + Cards.Other_Num);
+
+                    //お互いのカードの表示
+                    Cards.Owner_Card.text = "あなたは密偵【" + Cards.Own_Num + "】を出しました。";
+                    Cards.Other_Card.text = "相手は魔術師【" + Cards.Other_Num + "（将軍！）】を出しました。";
+
+                    //結果メッセージ
+                    Cards.Big_or_Small.text = "   YOU LOSE...";
+
+                    //勝敗数を加算
+                    Cards.LOSE_Count = Cards.ADD_Win_Lose;
+                    //勝敗加算を初期化
+                    Cards.ADD_Win_Lose = 1;
+
+                    //自分の勝敗数表示
+                    Cards.Own_Win.text = "WIN : " + Cards.WIN_Count.ToString();
+                    Cards.Own_Lose.text = "LOSE : " + Cards.LOSE_Count.ToString();
+                    //相手の勝敗数表示
+                    Cards.Other_Win.text = "WIN : " + Cards.LOSE_Count.ToString();
+                    Cards.Other_Lose.text = "LOSE : " + Cards.WIN_Count.ToString();
+
+                    //相手の将軍のフラグをfalseに
+                    Cards.Other_General_Effect = false;
+
+                    //密偵のフラグをtrueに
+                    Cards.Spy_Effect = true;
+                    break;
+
+                case 7:
+                    //デバッグ用
+                    Debug.Log("Owner: " + Cards.Own_Num);
+                    Debug.Log("Other: " + Cards.Other_Num);
+
+                    //お互いのカードの表示
+                    Cards.Owner_Card.text = "あなたは密偵【" + Cards.Own_Num + "】を出しました。";
+                    Cards.Other_Card.text = "相手は王子【" + Cards.Other_Num + "（将軍！）】を出しました。";
+
+                    //結果メッセージ
+                    Cards.Big_or_Small.text = "   YOU LOSE...";
+
+                    //勝敗数を加算
+                    Cards.LOSE_Count = Cards.ADD_Win_Lose;
+                    //勝敗加算を初期化
+                    Cards.ADD_Win_Lose = 1;
+
+                    //自分の勝敗数表示
+                    Cards.Own_Win.text = "WIN : " + Cards.WIN_Count.ToString();
+                    Cards.Own_Lose.text = "LOSE : " + Cards.LOSE_Count.ToString();
+                    //相手の勝敗数表示
+                    Cards.Other_Win.text = "WIN : " + Cards.LOSE_Count.ToString();
+                    Cards.Other_Lose.text = "LOSE : " + Cards.WIN_Count.ToString();
+
+                    //相手の将軍のフラグをfalseに
+                    Cards.Other_General_Effect = false;
+
+                    //密偵のフラグをtrueに
+                    Cards.Spy_Effect = true;
                     break;
             }
         }

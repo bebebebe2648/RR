@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Cards : Photon.PunBehaviour
 {
@@ -60,6 +61,12 @@ public class Cards : Photon.PunBehaviour
     [SerializeField]
     PrinceB PrinceB;
 
+    [SerializeField]
+    Button Check_Button;
+
+    //カード確認パネル
+    [SerializeField]
+    GameObject Check_Panel;
     //勝敗表示パネル(WorLP)
     [SerializeField]
     GameObject Win_Lose_Panel;
@@ -74,7 +81,7 @@ public class Cards : Photon.PunBehaviour
 
     //プレイヤー名の表示
     [SerializeField]
-    Text Own_Name, Other_Name;
+    Text Own_Name, Other_Name = null;
 
     //プレイヤーの勝敗数の表示
     [SerializeField]
@@ -84,7 +91,7 @@ public class Cards : Photon.PunBehaviour
     [SerializeField]
     public Button Reset_Button;
 
-    //
+    //ゲームの終了フラグ
     public bool Reset_Flag = false;
 
     //勝敗カウント
@@ -98,6 +105,10 @@ public class Cards : Photon.PunBehaviour
     public bool Spy_Effect = false;
     public bool Own_General_Effect = false;
     public bool Other_General_Effect = false;
+
+    //カードを出し終わったかの確認フラグ
+    public bool Own_OK_Flag;
+    public bool Other_OK_Flag;
 
     //プレイヤーのカードの数値
     public int Own_Num = -1;
@@ -158,7 +169,9 @@ public class Cards : Photon.PunBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Check_Panel.SetActive(false);
         Win_Lose_Panel.SetActive(false);
+        
         Reset_Button.interactable = false;
 
         RRView = GetComponent<PhotonView>();
@@ -182,17 +195,39 @@ public class Cards : Photon.PunBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (PhotonNetwork.player.IsMasterClient)
+        {
+            if (Own_OK_Flag == true && Other_OK_Flag == true)
+            {
+                WINorLOSE();
+            }
+        }
+
+        else
+        {
+            if (Own_OK_Flag == true && Other_OK_Flag == true)
+            {
+                WINorLOSE();
+            }
+        }
+
         //ゲーム終了時、リセットボタンを押せるように
         if (WIN_Count >= 4 || LOSE_Count >= 4)
         {
             Reset_Flag = true;
+        }
+
+        if (Reset_Flag == true)
+        {
+            Check_Button.interactable = false;
+            Reset_Button.interactable = true;
         }
     }
 
     //通信して相手のプレイヤー名を表示
     public void NameSet()
     {
-        RRView.RPC("NAMESet", PhotonTargets.All, PhotonNetwork.player.NickName);
+        RRView.RPC("NAMESet", PhotonTargets.AllBuffered, PhotonNetwork.player.NickName);
     }
 
     [PunRPC]
@@ -245,5 +280,16 @@ public class Cards : Photon.PunBehaviour
                 PrinceB.Prince_Win_Lose();
                 break;
         }
+    }
+
+    //プレイヤーが退室した場合
+    public override void OnMasterClientSwitched(PhotonPlayer newMasterClient)
+    {
+        SceneManager.LoadScene("Title");
+    }
+
+    public override void OnPhotonPlayerDisconnected(PhotonPlayer Player)
+    {
+        SceneManager.LoadScene("Title");
     }
 }

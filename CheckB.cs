@@ -7,16 +7,11 @@ public class CheckB : MonoBehaviour
 {
     [SerializeField]
     Cards Cards;
+    [SerializeField]
+    WorLP Win_Lose_Panel;
 
     [SerializeField]
     YESB YES;
-
-    [SerializeField]
-    NTSys NT;
-
-    [SerializeField]
-    WorLP WLP;
-
     [SerializeField]
     Button Check_Button;
 
@@ -53,8 +48,8 @@ public class CheckB : MonoBehaviour
         Cards.ADD_Win_Lose = 1;
 
         //各種フラグ
-        NT.OwnFlag = false;
-        NT.OtherFlag = false;
+        Cards.Own_OK_Flag = false;
+        Cards.Other_OK_Flag = false;
 
         //密偵・両将軍効果フラグをfalseに
         Cards.Spy_Effect = false;
@@ -73,96 +68,20 @@ public class CheckB : MonoBehaviour
         Cards.Other_Win.text = "WIN : " + Cards.LOSE_Count.ToString();
         Cards.Other_Lose.text = "LOSE : " + Cards.WIN_Count.ToString();
 
-        WLP.gameObject.SetActive(false);
+        Win_Lose_Panel.gameObject.SetActive(false);
     }
 
-    public void CheckClick()
+    public void OnClick()
     {
         //各ボタン押せるように
         if (PhotonNetwork.player.IsMasterClient)
         {
-            if (Cards.Clown_Card[0].Use_Card != true)
-            {
-                Cards.Clown_Button.interactable = true;
-            }
-
-            if (Cards.Princess_Card[0].Use_Card != true)
-            {
-                Cards.Princess_Button.interactable = true;
-            }
-
-            if (Cards.Spy_Card[0].Use_Card != true)
-            {
-                Cards.Spy_Button.interactable = true;
-            }
-
-            if (Cards.Assassin_Card[0].Use_Card != true)
-            {
-                Cards.Assassin_Button.interactable = true;
-            }
-
-            if (Cards.Ministry_Card[0].Use_Card != true)
-            {
-                Cards.Ministry_Button.interactable = true;
-            }
-
-            if (Cards.Magician_Card[0].Use_Card != true)
-            {
-                Cards.Magician_Button.interactable = true;
-            }
-
-            if (Cards.General_Card[0].Use_Card != true)
-            {
-                Cards.General_Button.interactable = true;
-            }
-
-            if (Cards.Prince_Card[0].Use_Card != true)
-            {
-                Cards.Prince_Button.interactable = true;
-            }
+            Push_Button();
         }
 
         else
         {
-            if (Cards.Clown_Card[0].Use_Card != true)
-            {
-                Cards.Clown_Button.interactable = true;
-            }
-
-            if (Cards.Princess_Card[0].Use_Card != true)
-            {
-                Cards.Princess_Button.interactable = true;
-            }
-
-            if (Cards.Spy_Card[0].Use_Card != true)
-            {
-                Cards.Spy_Button.interactable = true;
-            }
-
-            if (Cards.Assassin_Card[0].Use_Card != true)
-            {
-                Cards.Assassin_Button.interactable = true;
-            }
-
-            if (Cards.Ministry_Card[0].Use_Card != true)
-            {
-                Cards.Ministry_Button.interactable = true;
-            }
-
-            if (Cards.Magician_Card[0].Use_Card != true)
-            {
-                Cards.Magician_Button.interactable = true;
-            }
-
-            if (Cards.General_Card[0].Use_Card != true)
-            {
-                Cards.General_Button.interactable = true;
-            }
-
-            if (Cards.Prince_Card[0].Use_Card != true)
-            {
-                Cards.Prince_Button.interactable = true;
-            }
+            Push_Button();
         }
 
         //説明が出るように
@@ -175,6 +94,49 @@ public class CheckB : MonoBehaviour
         Cards.General_Card[0].Card_Flag = false;
         Cards.Prince_Card[0].Card_Flag = false;
         
-        WLP.gameObject.SetActive(false);
+        Win_Lose_Panel.gameObject.SetActive(false);
+    }
+
+    public void Push_Button()
+    {
+        if (Cards.Clown_Card[0].Use_Card != true)
+        {
+            Cards.Clown_Button.interactable = true;
+        }
+
+        if (Cards.Princess_Card[0].Use_Card != true)
+        {
+            Cards.Princess_Button.interactable = true;
+        }
+
+        if (Cards.Spy_Card[0].Use_Card != true)
+        {
+            Cards.Spy_Button.interactable = true;
+        }
+
+        if (Cards.Assassin_Card[0].Use_Card != true)
+        {
+            Cards.Assassin_Button.interactable = true;
+        }
+
+        if (Cards.Ministry_Card[0].Use_Card != true)
+        {
+            Cards.Ministry_Button.interactable = true;
+        }
+
+        if (Cards.Magician_Card[0].Use_Card != true)
+        {
+            Cards.Magician_Button.interactable = true;
+        }
+
+        if (Cards.General_Card[0].Use_Card != true)
+        {
+            Cards.General_Button.interactable = true;
+        }
+
+        if (Cards.Prince_Card[0].Use_Card != true)
+        {
+            Cards.Prince_Button.interactable = true;
+        }
     }
 }

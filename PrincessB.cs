@@ -9,7 +9,7 @@ public class PrincessB : Photon.PunBehaviour
     Cards Cards;
 
     [SerializeField]
-    READYB RB;
+    GameObject Check_Panel;
     [SerializeField]
     YESB YES;
 	
@@ -45,7 +45,7 @@ public class PrincessB : Photon.PunBehaviour
     
     public void OnClick()
     {
-        RB.ReadyB.interactable = true;
+        Check_Panel.gameObject.SetActive(true);
 
         //ボタンを押せないように
         Cards.Princess_Card[0].Use_Card = true;
@@ -79,26 +79,12 @@ public class PrincessB : Photon.PunBehaviour
         if (PhotonNetwork.player.IsMasterClient)
         {
             PrincessCard_WINorLOSE();
-
-            //自分の勝敗数表示
-            Cards.Own_Win.text = "WIN : " + Cards.WIN_Count.ToString();
-            Cards.Own_Lose.text = "LOSE : " + Cards.LOSE_Count.ToString();
-            //相手の勝敗数表示
-            Cards.Other_Win.text = "WIN : " + Cards.LOSE_Count.ToString();
-            Cards.Other_Lose.text = "LOSE : " + Cards.WIN_Count.ToString();
         }
 
         //相手の処理
         else
         {
             PrincessCard_WINorLOSE();
-
-            //自分の勝敗数表示
-            Cards.Own_Win.text = "WIN : " + Cards.WIN_Count.ToString();
-            Cards.Own_Lose.text = "LOSE : " + Cards.LOSE_Count.ToString();
-            //相手の勝敗数表示
-            Cards.Other_Win.text = "WIN : " + Cards.LOSE_Count.ToString();
-            Cards.Other_Lose.text = "LOSE : " + Cards.WIN_Count.ToString();
         }
     }
 
@@ -283,6 +269,7 @@ public class PrincessB : Photon.PunBehaviour
                     break;
 
                 case 7:
+                    /*
                     //デバッグ用
                     Debug.Log("Owner: " + Cards.Own_Num);
                     Debug.Log("Other: " + Cards.Other_Num);
@@ -307,6 +294,7 @@ public class PrincessB : Photon.PunBehaviour
                     
                     //ゲーム終了、リセットフラグをtrueに
                     Cards.Reset_Flag = true;
+                    */
                     break;
             }
         }
@@ -494,6 +482,7 @@ public class PrincessB : Photon.PunBehaviour
                     break;
 
                 case 7:
+                    /*
                     //デバッグ用
                     Debug.Log("Owner: " + Cards.Own_Num);
                     Debug.Log("Other: " + Cards.Other_Num);
@@ -514,6 +503,7 @@ public class PrincessB : Photon.PunBehaviour
 
                     //ゲーム終了、リセットフラグをtrueに
                     Cards.Reset_Flag = true;
+                    */
                     break;
             }
         }
@@ -561,8 +551,10 @@ public class PrincessB : Photon.PunBehaviour
                     //結果メッセージ
                     Cards.Big_or_Small.text = "     YOU WIN!";
 
-                    //勝利数を持ち越し加算
-                    Cards.ADD_Win_Lose += 1;
+                    //勝敗数を加算
+                    Cards.WIN_Count += Cards.ADD_Win_Lose;
+                    //勝敗加算を初期化
+                    Cards.ADD_Win_Lose = 1;
 
                     //自分の勝敗数表示
                     Cards.Own_Win.text = "WIN : " + Cards.WIN_Count.ToString();
@@ -587,8 +579,10 @@ public class PrincessB : Photon.PunBehaviour
                     //結果メッセージ
                     Cards.Big_or_Small.text = "     YOU WIN!";
 
-                    //勝利数を持ち越し加算
-                    Cards.ADD_Win_Lose += 1;
+                    //勝敗数を加算
+                    Cards.WIN_Count += Cards.ADD_Win_Lose;
+                    //勝敗加算を初期化
+                    Cards.ADD_Win_Lose = 1;
 
                     //自分の勝敗数表示
                     Cards.Own_Win.text = "WIN : " + Cards.WIN_Count.ToString();
@@ -712,9 +706,13 @@ public class PrincessB : Photon.PunBehaviour
 
                     //将軍のフラグをfalseに
                     Cards.Own_General_Effect = false;
+
+                    //相手の将軍のフラグをtrueに
+                    Cards.Other_General_Effect = true;
                     break;
 
                 case 7:
+                    /*
                     //デバッグ用
                     Debug.Log("Owner: " + Cards.Own_Num);
                     Debug.Log("Other: " + Cards.Other_Num);
@@ -726,11 +724,6 @@ public class PrincessB : Photon.PunBehaviour
                     //結果メッセージ
                     Cards.Big_or_Small.text = " BATTLE ENDED\n     YOU WIN!";
 
-                    //勝敗数を加算
-                    Cards.LOSE_Count = Cards.ADD_Win_Lose;
-                    //勝敗加算を初期化
-                    Cards.ADD_Win_Lose = 1;
-
                     //自分の勝敗数表示
                     Cards.Own_Win.text = "WIN : " + Cards.WIN_Count.ToString();
                     Cards.Own_Lose.text = "LOSE : " + Cards.LOSE_Count.ToString();
@@ -740,6 +733,10 @@ public class PrincessB : Photon.PunBehaviour
 
                     //将軍のフラグをfalseに
                     Cards.Own_General_Effect = false;
+
+                    //ゲーム終了、リセットフラグをtrueに
+                    Cards.Reset_Flag = true;
+                    */
                     break;
             }
         }
@@ -771,7 +768,7 @@ public class PrincessB : Photon.PunBehaviour
                     Cards.Other_Win.text = "WIN : " + Cards.LOSE_Count.ToString();
                     Cards.Other_Lose.text = "LOSE : " + Cards.WIN_Count.ToString();
 
-                    //将軍のフラグをfalseに
+                    //相手の将軍のフラグをfalseに
                     Cards.Other_General_Effect = false;
                     break;
 
@@ -787,8 +784,10 @@ public class PrincessB : Photon.PunBehaviour
                     //結果メッセージ
                     Cards.Big_or_Small.text = "   YOU LOSE...";
 
-                    //勝利数を持ち越し加算
-                    Cards.ADD_Win_Lose += 1;
+                    //勝敗数を加算
+                    Cards.LOSE_Count = Cards.ADD_Win_Lose;
+                    //勝敗加算を初期化
+                    Cards.ADD_Win_Lose = 1;
 
                     //自分の勝敗数表示
                     Cards.Own_Win.text = "WIN : " + Cards.WIN_Count.ToString();
@@ -797,7 +796,7 @@ public class PrincessB : Photon.PunBehaviour
                     Cards.Other_Win.text = "WIN : " + Cards.LOSE_Count.ToString();
                     Cards.Other_Lose.text = "LOSE : " + Cards.WIN_Count.ToString();
 
-                    //将軍のフラグをfalseに
+                    //相手の将軍のフラグをfalseに
                     Cards.Other_General_Effect = false;
                     break;
 
@@ -813,8 +812,10 @@ public class PrincessB : Photon.PunBehaviour
                     //結果メッセージ
                     Cards.Big_or_Small.text = "   YOU LOSE...";
 
-                    //勝利数を持ち越し加算
-                    Cards.ADD_Win_Lose += 1;
+                    //勝敗数を加算
+                    Cards.LOSE_Count = Cards.ADD_Win_Lose;
+                    //勝敗加算を初期化
+                    Cards.ADD_Win_Lose = 1;
 
                     //自分の勝敗数表示
                     Cards.Own_Win.text = "WIN : " + Cards.WIN_Count.ToString();
@@ -823,7 +824,7 @@ public class PrincessB : Photon.PunBehaviour
                     Cards.Other_Win.text = "WIN : " + Cards.LOSE_Count.ToString();
                     Cards.Other_Lose.text = "LOSE : " + Cards.WIN_Count.ToString();
 
-                    //将軍のフラグをfalseに
+                    //相手の将軍のフラグをfalseに
                     Cards.Other_General_Effect = false;
 
                     //密偵のフラグをtrueに
@@ -840,10 +841,12 @@ public class PrincessB : Photon.PunBehaviour
                     Cards.Other_Card.text = "相手は暗殺者【" + Cards.Other_Num + "（将軍！）】を出しました。";
 
                     //結果メッセージ
-                    Cards.Big_or_Small.text = "       DRAW!?";
+                    Cards.Big_or_Small.text = "     YOU WIN!";
 
-                    //勝利数を持ち越し加算
-                    Cards.ADD_Win_Lose += 1;
+                    //勝敗数を加算
+                    Cards.WIN_Count += Cards.ADD_Win_Lose;
+                    //勝敗加算を初期化
+                    Cards.ADD_Win_Lose = 1;
 
                     //自分の勝敗数表示
                     Cards.Own_Win.text = "WIN : " + Cards.WIN_Count.ToString();
@@ -852,7 +855,7 @@ public class PrincessB : Photon.PunBehaviour
                     Cards.Other_Win.text = "WIN : " + Cards.LOSE_Count.ToString();
                     Cards.Other_Lose.text = "LOSE : " + Cards.WIN_Count.ToString();
 
-                    //将軍のフラグをfalseに
+                    //相手の将軍のフラグをfalseに
                     Cards.Other_General_Effect = false;
                     break;
 
@@ -880,7 +883,7 @@ public class PrincessB : Photon.PunBehaviour
                     Cards.Other_Win.text = "WIN : " + Cards.LOSE_Count.ToString();
                     Cards.Other_Lose.text = "LOSE : " + Cards.WIN_Count.ToString();
 
-                    //将軍のフラグをfalseに
+                    //相手の将軍のフラグをfalseに
                     Cards.Other_General_Effect = false;
                     break;
 
@@ -908,11 +911,12 @@ public class PrincessB : Photon.PunBehaviour
                     Cards.Other_Win.text = "WIN : " + Cards.LOSE_Count.ToString();
                     Cards.Other_Lose.text = "LOSE : " + Cards.WIN_Count.ToString();
 
-                    //将軍のフラグをfalseに
+                    //相手の将軍のフラグをfalseに
                     Cards.Other_General_Effect = false;
                     break;
 
                 case 7:
+                    /*
                     //デバッグ用
                     Debug.Log("Owner: " + Cards.Own_Num);
                     Debug.Log("Other: " + Cards.Other_Num);
@@ -924,11 +928,6 @@ public class PrincessB : Photon.PunBehaviour
                     //結果メッセージ
                     Cards.Big_or_Small.text = " BATTLE ENDED\n     YOU WIN!";
 
-                    //勝敗数を加算
-                    Cards.LOSE_Count = Cards.ADD_Win_Lose;
-                    //勝敗加算を初期化
-                    Cards.ADD_Win_Lose = 1;
-
                     //自分の勝敗数表示
                     Cards.Own_Win.text = "WIN : " + Cards.WIN_Count.ToString();
                     Cards.Own_Lose.text = "LOSE : " + Cards.LOSE_Count.ToString();
@@ -936,9 +935,14 @@ public class PrincessB : Photon.PunBehaviour
                     Cards.Other_Win.text = "WIN : " + Cards.LOSE_Count.ToString();
                     Cards.Other_Lose.text = "LOSE : " + Cards.WIN_Count.ToString();
 
-                    //将軍のフラグをfalseに
+                    //相手の将軍のフラグをfalseに
                     Cards.Other_General_Effect = false;
+
+                    //ゲーム終了、リセットフラグをtrueに
+                    Cards.Reset_Flag = true;
+                    */
                     break;
+                    
             }
         }
     }

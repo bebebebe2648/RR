@@ -11,17 +11,14 @@ public class YESB : Photon.PunBehaviour
     Cards Cards;
 
     [SerializeField]
-    READYB RB;
+    GameObject Check_Panel;
+    [SerializeField]
+    GameObject SPY_Panel;
 
     [SerializeField]
-    GameObject CP;
+    Text SPY_Text;
     [SerializeField]
-    GameObject SPL;
-
-    [SerializeField]
-    Text SPT;
-    [SerializeField]
-    Button SCB;
+    Button SPYCheck_Button;
 
     public int YESNum = -1;
     public int EscBox = -1;
@@ -29,7 +26,7 @@ public class YESB : Photon.PunBehaviour
     void Awake()
     {
         YESView = GetComponent<PhotonView>();
-        SPL.gameObject.SetActive(false);
+        SPY_Panel.gameObject.SetActive(false);
     }
 
     void SendOK()
@@ -152,8 +149,8 @@ public class YESB : Photon.PunBehaviour
 
             if (Cards.Spy_Effect == true)
             {
-                SPL.gameObject.SetActive(true);
-                SPT.text = "相手は【" + Cards.Other_Num + "】を出しました。";
+                SPY_Panel.gameObject.SetActive(true);
+                SPY_Text.text = "相手は【" + Cards.Other_Num + "】を出しました。";
             }
             
             Cards.Spy_Effect = false;
@@ -166,8 +163,8 @@ public class YESB : Photon.PunBehaviour
 
             if (Cards.Spy_Effect == true)
             {
-                SPL.gameObject.SetActive(true);
-                SPT.text = "相手は【" + Cards.Other_Num + "】を出しました。";
+                SPY_Panel.gameObject.SetActive(true);
+                SPY_Text.text = "相手は【" + Cards.Other_Num + "】を出しました。";
             }
 
             Cards.Spy_Effect = false;
@@ -283,13 +280,11 @@ public class YESB : Photon.PunBehaviour
         YESNum = -1;
         EscBox = -1;
 
-        RB.ReadyB.interactable = false;
-
-        CP.SetActive(false);
+        Check_Panel.SetActive(false);
     }
 
     public void CheckClick()
     {
-        SPL.gameObject.SetActive(false);
+        SPY_Panel.gameObject.SetActive(false);
     }
 }
