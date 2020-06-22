@@ -20,7 +20,7 @@ public class PrinceB : MonoBehaviour
             Cards.Prince_Button.interactable = false;
         }
 
-        if (Cards.Spy_Effect == true)
+        if (Cards.Own_Spy_Effect == true)
         {
             Cards.Prince_Button.interactable = false;
         }
@@ -69,6 +69,7 @@ public class PrinceB : MonoBehaviour
         Cards.Prince_Card[0].Card_Flag = true;
 
         YES.YESNum = Cards.Prince_Card[0].Card_Num;
+        Cards.OwnNUM.text = "自分： " + YES.YESNum;
         Cards.Message_Text.text = "【王子】を選択中。";
     }
 
@@ -122,7 +123,7 @@ public class PrinceB : MonoBehaviour
                     break;
 
                 case 1:
-                    /*
+                    
                     //デバッグ用
                     Debug.Log("Owner: " + Cards.Own_Num);
                     Debug.Log("Other: " + Cards.Other_Num);
@@ -147,7 +148,7 @@ public class PrinceB : MonoBehaviour
 
                     //ゲーム終了、リセットフラグをtrueに
                     Cards.Reset_Flag = true;
-                    */
+                    
                     break;
 
                 case 2:
@@ -179,7 +180,7 @@ public class PrinceB : MonoBehaviour
                     Cards.Other_General_Effect = false;
 
                     //密偵のフラグをtrueに
-                    Cards.Spy_Effect = true;
+                    //Cards.Spy_Effect = true;
                     break;
 
                 case 3:
@@ -327,7 +328,7 @@ public class PrinceB : MonoBehaviour
                     break;
 
                 case 1:
-                    /*
+                    
                     //デバッグ用
                     Debug.Log("Owner: " + Cards.Own_Num);
                     Debug.Log("Other: " + Cards.Other_Num);
@@ -348,7 +349,7 @@ public class PrinceB : MonoBehaviour
 
                     //ゲーム終了、リセットフラグをtrueに
                     Cards.Reset_Flag = true;
-                    */
+                    
                     break;
 
                 case 2:
@@ -376,7 +377,7 @@ public class PrinceB : MonoBehaviour
                     Cards.Other_Lose.text = "LOSE : " + Cards.WIN_Count.ToString();
 
                     //密偵のフラグをtrueに
-                    Cards.Spy_Effect = true;
+                    //Cards.Spy_Effect = true;
                     break;
 
                 case 3:
@@ -539,7 +540,7 @@ public class PrinceB : MonoBehaviour
                     break;
 
                 case 1:
-                    /*
+                    
                     //デバッグ用
                     Debug.Log("Owner: " + Cards.Own_Num);
                     Debug.Log("Other: " + Cards.Other_Num);
@@ -563,7 +564,7 @@ public class PrinceB : MonoBehaviour
 
                     //ゲーム終了、リセットフラグをtrueに
                     Cards.Reset_Flag = true;
-                    */
+                    
                     break;
 
                 case 2:
@@ -594,7 +595,7 @@ public class PrinceB : MonoBehaviour
                     Cards.Own_General_Effect = false;
 
                     //密偵のフラグをtrueに
-                    Cards.Spy_Effect = true;
+                    //Cards.Spy_Effect = true;
                     break;
 
                 case 3:
@@ -773,7 +774,7 @@ public class PrinceB : MonoBehaviour
                     break;
 
                 case 1:
-                    /*
+                    
                     //デバッグ用
                     Debug.Log("Owner: " + Cards.Own_Num);
                     Debug.Log("Other: " + Cards.Other_Num);
@@ -797,7 +798,7 @@ public class PrinceB : MonoBehaviour
 
                     //ゲーム終了、リセットフラグをtrueに
                     Cards.Reset_Flag = true;
-                    */
+                    
                     break;
 
                 case 2:
@@ -828,7 +829,7 @@ public class PrinceB : MonoBehaviour
                     Cards.Other_General_Effect = false;
 
                     //密偵のフラグをtrueに
-                    Cards.Spy_Effect = true;
+                    //Cards.Spy_Effect = true;
                     break;
 
                 case 3:

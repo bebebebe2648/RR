@@ -29,68 +29,29 @@ public class YESB : Photon.PunBehaviour
         SPY_Panel.gameObject.SetActive(false);
     }
 
-    void SendOK()
+    void SendNum()
     {
-        YESView.RPC("Sendok", PhotonTargets.Others);
+        YESView.RPC("SENDNum", PhotonTargets.Others, YESNum);
     }
 
     [PunRPC]
-    public void Sendok()
+    public void SENDNum(int yesnum)
     {
         if (PhotonNetwork.player.IsMasterClient)
         {
-            //NT.OtherFlag = true;
+            //相手に自分のカードの選択終了のフラグを立てる
+            Cards.Other_OK_Flag = true;
 
-            if (Cards.Spy_Effect == true)
+            //密偵を使われている
+            if (Cards.Other_Spy_Effect == true)
             {
-                if(Cards.Clown_Card[0].Used_Card != true)
-                {
-                    Cards.Clown_Button.interactable = true;
-                }
+                Cards.Other_Num = yesnum;
+                Cards.OtherNUM.text = "相手： " + yesnum;
 
-                if (Cards.Princess_Card[0].Used_Card != true)
-                {
-                    Cards.Princess_Button.interactable = true;
-                }
+                SPY_Panel.gameObject.SetActive(true);
+                SPY_Text.text = "相手は【" + Cards.Other_Num + "】を出しました。";
+                Cards.Own_Spy_Effect = false;
 
-                if (Cards.Spy_Card[0].Used_Card != true)
-                {
-                    Cards.Spy_Button.interactable = true;
-                }
-
-                if (Cards.Assassin_Card[0].Used_Card != true)
-                {
-                    Cards.Assassin_Button.interactable = true;
-                }
-
-                if (Cards.Ministry_Card[0].Used_Card != true)
-                {
-                    Cards.Ministry_Button.interactable = true;
-                }
-
-                if (Cards.Magician_Card[0].Used_Card != true)
-                {
-                    Cards.Magician_Button.interactable = true;
-                }
-
-                if (Cards.General_Card[0].Used_Card != true)
-                {
-                    Cards.General_Button.interactable = true;
-                }
-
-                if (Cards.Prince_Card[0].Used_Card != true)
-                {
-                    Cards.Prince_Button.interactable = true;
-                }
-            }
-        }
-
-        else
-        {
-            //NT.OtherFlag = true;
-
-            if (Cards.Spy_Effect == true)
-            {
                 if (Cards.Clown_Card[0].Used_Card != true)
                 {
                     Cards.Clown_Button.interactable = true;
@@ -131,43 +92,96 @@ public class YESB : Photon.PunBehaviour
                     Cards.Prince_Button.interactable = true;
                 }
             }
-        }
-    }
 
-    void SendNum()
-    {
-        YESView.RPC("SENDNum", PhotonTargets.All, YESNum);
-    }
-
-    [PunRPC]
-    public void SENDNum(int yesnum)
-    {
-        if (PhotonNetwork.player.IsMasterClient)
-        {
-            Cards.Other_Num = yesnum;
-            Debug.Log("OtherNum = YESNum" + yesnum);
-
-            if (Cards.Spy_Effect == true)
+            //密偵を使われていない
+            else
             {
-                SPY_Panel.gameObject.SetActive(true);
-                SPY_Text.text = "相手は【" + Cards.Other_Num + "】を出しました。";
+                Cards.Other_Num = yesnum;
+                Cards.OtherNUM.text = "相手： " + yesnum;
             }
-            
-            Cards.Spy_Effect = false;
         }
 
         else
         {
-            Cards.Other_Num = yesnum;
-            Debug.Log("OtherNum = YESNum" + yesnum);
+            //相手に自分のカードの選択終了のフラグを立てる
+            Cards.Other_OK_Flag = true;
 
-            if (Cards.Spy_Effect == true)
+            //密偵を使われている
+            if (Cards.Other_Spy_Effect == true)
             {
+                Cards.Other_Num = yesnum;
+                Cards.OtherNUM.text = "相手： " + yesnum;
+
                 SPY_Panel.gameObject.SetActive(true);
                 SPY_Text.text = "相手は【" + Cards.Other_Num + "】を出しました。";
+                Cards.Own_Spy_Effect = false;
+
+                if (Cards.Clown_Card[0].Used_Card != true)
+                {
+                    Cards.Clown_Button.interactable = true;
+                }
+
+                if (Cards.Princess_Card[0].Used_Card != true)
+                {
+                    Cards.Princess_Button.interactable = true;
+                }
+
+                if (Cards.Spy_Card[0].Used_Card != true)
+                {
+                    Cards.Spy_Button.interactable = true;
+                }
+
+                if (Cards.Assassin_Card[0].Used_Card != true)
+                {
+                    Cards.Assassin_Button.interactable = true;
+                }
+
+                if (Cards.Ministry_Card[0].Used_Card != true)
+                {
+                    Cards.Ministry_Button.interactable = true;
+                }
+
+                if (Cards.Magician_Card[0].Used_Card != true)
+                {
+                    Cards.Magician_Button.interactable = true;
+                }
+
+                if (Cards.General_Card[0].Used_Card != true)
+                {
+                    Cards.General_Button.interactable = true;
+                }
+
+                if (Cards.Prince_Card[0].Used_Card != true)
+                {
+                    Cards.Prince_Button.interactable = true;
+                }
             }
 
-            Cards.Spy_Effect = false;
+            //密偵を使われていない
+            else
+            {
+                Cards.Other_Num = yesnum;
+                Cards.OtherNUM.text = "相手： " + yesnum;
+            }
+        }
+    }
+
+    public void SpyEffect()
+    {
+        YESView.RPC("SPYEffect", PhotonTargets.Others);
+    }
+
+    [PunRPC]
+    public void SPYEffect()
+    {
+        if (PhotonNetwork.player.IsMasterClient)
+        {
+            Cards.Other_Spy_Effect = true;
+        }
+
+        else
+        {
+            Cards.Other_Spy_Effect = true;
         }
     }
 
@@ -213,74 +227,128 @@ public class YESB : Photon.PunBehaviour
             Cards.Prince_Card[0].Used_Card = true;
         }
 
-        //NT.OwnFlag = true;
-
-        SendOK();
-
-        if (PhotonNetwork.player.IsMasterClient)
+        //密偵を使った
+        if (Cards.Own_Spy_Effect == true)
         {
-            //数値が送られてきてる場合の退避処理（後押し）
-            if (Cards.Own_Num != Cards.Other_Num && Cards.Other_Num == EscBox)
+            //密偵を使われているか
+            if (Cards.Other_Spy_Effect == true)
             {
-                EscBox = Cards.Other_Num;
+                //数値が決定して、相手に送信
+                if (PhotonNetwork.player.IsMasterClient)
+                {
+                    //自身の数値を代入
+                    Cards.Own_Num = YESNum;
 
-                //自身の数値を代入
-                Cards.Own_Num = YESNum;
-                Debug.Log("OwnNum = YESNum" + YESNum);
+                    //相手に数値を送信
+                    SendNum();
 
-                //相手に数値を送信、かつ自身の相手の数値を代入してしまう処理
-                SendNum();
+                    //相手に密偵フラグ立てる
+                    SpyEffect();
+                }
 
-                //退避してた数値を戻す
-                Cards.Other_Num = EscBox;
+                else
+                {
+                    //自身の数値を代入
+                    Cards.Own_Num = YESNum;
+
+                    //相手に数値を送信
+                    SendNum();
+
+                    //相手に密偵フラグ立てる
+                    SpyEffect();
+                }
+
+                Cards.Other_Spy_Effect = false;
             }
 
-            //数値が送られてきてない場合の処理（先押し）
-            else if (Cards.Own_Num == Cards.Other_Num && Cards.Other_Num == EscBox)
+            else
             {
-                //自身の数値を代入
-                Cards.Own_Num = YESNum;
-                Debug.Log("OwnNum = YESNum" + YESNum);
+                //数値が決定して、相手に送信
+                if (PhotonNetwork.player.IsMasterClient)
+                {
+                    //自身の数値を代入
+                    Cards.Own_Num = YESNum;
 
-                //相手に数値を送信、かつ自身の相手の数値を代入してしまう処理
-                SendNum();
+                    //相手に数値を送信
+                    SendNum();
+
+                    //相手に密偵フラグ立てる
+                    SpyEffect();
+                }
+
+                else
+                {
+                    //自身の数値を代入
+                    Cards.Own_Num = YESNum;
+
+                    //相手に数値を送信
+                    SendNum();
+
+                    //相手に密偵フラグ立てる
+                    SpyEffect();
+                }
             }
         }
 
+        //密偵を使っていない
         else
         {
-            //数値が送られてきてる場合の退避処理（後押し）
-            if (Cards.Own_Num != Cards.Other_Num && Cards.Other_Num == EscBox)
+            //密偵を使われているか
+            if (Cards.Other_Spy_Effect == true)
             {
-                EscBox = Cards.Other_Num;
+                //数値が決定して、相手に送信
+                if (PhotonNetwork.player.IsMasterClient)
+                {
+                    //自身の数値を代入
+                    Cards.Own_Num = YESNum;
 
-                //自身の数値を代入
-                Cards.Own_Num = YESNum;
-                Debug.Log("OwnNum = YESNum" + YESNum);
+                    //相手に数値を送信
+                    SendNum();
+                }
 
-                //相手に数値を送信、かつ自身の相手の数値を代入してしまう処理
-                SendNum();
+                else
+                {
+                    //自身の数値を代入
+                    Cards.Own_Num = YESNum;
 
-                //退避してた数値を戻す
-                Cards.Other_Num = EscBox;
+                    //相手に数値を送信
+                    SendNum();
+                }
+
+                Cards.Other_Spy_Effect = false;
             }
 
-            //数値が送られてきてない場合の処理（先押し）
-            else if (Cards.Own_Num == Cards.Other_Num && Cards.Other_Num == EscBox)
+            else
             {
-                //自身の数値を代入
-                Cards.Own_Num = YESNum;
-                Debug.Log("OwnNum = YESNum" + YESNum);
+                //数値が決定して、相手に送信
+                if (PhotonNetwork.player.IsMasterClient)
+                {
+                    //自身の数値を代入
+                    Cards.Own_Num = YESNum;
 
-                //相手に数値を送信、かつ自身の相手の数値を代入してしまう処理
-                SendNum();
+                    //相手に数値を送信
+                    SendNum();
+                }
+
+                else
+                {
+                    //自身の数値を代入
+                    Cards.Own_Num = YESNum;
+
+                    //相手に数値を送信
+                    SendNum();
+                }
             }
         }
 
         YESNum = -1;
         EscBox = -1;
 
+        //チェックパネルを閉じる
         Check_Panel.SetActive(false);
+        
+        //カード選択の終了
+        Cards.Own_OK_Flag = true;
     }
 
     public void CheckClick()

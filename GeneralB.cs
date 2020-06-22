@@ -20,7 +20,7 @@ public class GeneralB : Photon.PunBehaviour
             Cards.General_Button.interactable = false;
         }
 
-        if (Cards.Spy_Effect == true)
+        if (Cards.Own_Spy_Effect == true)
         {
             Cards.General_Button.interactable = false;
         }
@@ -69,6 +69,7 @@ public class GeneralB : Photon.PunBehaviour
         Cards.Prince_Card[0].Card_Flag = true;
 
         YES.YESNum = Cards.General_Card[0].Card_Num;
+        Cards.OwnNUM.text = "自分： " + YES.YESNum;
         Cards.Message_Text.text = "【将軍】を選択中。";
     }
 
@@ -167,7 +168,7 @@ public class GeneralB : Photon.PunBehaviour
                     Cards.Other_Lose.text = "LOSE : " + Cards.WIN_Count.ToString();
 
                     //密偵のフラグをtrueに
-                    Cards.Spy_Effect = true;
+                    //Cards.Spy_Effect = true;
                     break;
 
                 case 3:
@@ -385,7 +386,7 @@ public class GeneralB : Photon.PunBehaviour
                     Cards.Other_General_Effect = false;
 
                     //密偵のフラグをtrueに
-                    Cards.Spy_Effect = true;
+                    //Cards.Spy_Effect = true;
                     break;
 
                 case 3:

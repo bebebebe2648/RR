@@ -20,7 +20,7 @@ public class MagicianB : Photon.PunBehaviour
             Cards.Magician_Button.interactable = false;
         }
 
-        if (Cards.Spy_Effect == true)
+        if (Cards.Own_Spy_Effect == true)
         {
             Cards.Magician_Button.interactable = false;
         }
@@ -69,6 +69,7 @@ public class MagicianB : Photon.PunBehaviour
         Cards.Prince_Card[0].Card_Flag = true;
 
         YES.YESNum = Cards.Magician_Card[0].Card_Num;
+        Cards.OwnNUM.text = "自分： " + YES.YESNum;
         Cards.Message_Text.text = "【魔術師】を選択中。";
     }
 

@@ -21,7 +21,7 @@ public class PrincessB : Photon.PunBehaviour
             Cards.Princess_Button.interactable = false;
         }
 
-        if (Cards.Spy_Effect == true)
+        if (Cards.Own_Spy_Effect == true)
         {
             Cards.Princess_Button.interactable = false;
         }
@@ -70,6 +70,7 @@ public class PrincessB : Photon.PunBehaviour
         Cards.Prince_Card[0].Card_Flag = true;
 
         YES.YESNum = Cards.Princess_Card[0].Card_Num;
+        Cards.OwnNUM.text = "自分： " + YES.YESNum;
         Cards.Message_Text.text = "【姫】を選択中。";
     }
 
@@ -178,7 +179,7 @@ public class PrincessB : Photon.PunBehaviour
                     Cards.Other_General_Effect = false;
 
                     //密偵のフラグをtrueに
-                    Cards.Spy_Effect = true;
+                    //Cards.Spy_Effect = true;
                     break;
 
                 case 3:
@@ -269,7 +270,7 @@ public class PrincessB : Photon.PunBehaviour
                     break;
 
                 case 7:
-                    /*
+                    
                     //デバッグ用
                     Debug.Log("Owner: " + Cards.Own_Num);
                     Debug.Log("Other: " + Cards.Other_Num);
@@ -294,7 +295,7 @@ public class PrincessB : Photon.PunBehaviour
                     
                     //ゲーム終了、リセットフラグをtrueに
                     Cards.Reset_Flag = true;
-                    */
+                    
                     break;
             }
         }
@@ -375,7 +376,7 @@ public class PrincessB : Photon.PunBehaviour
                     Cards.Other_Lose.text = "LOSE : " + Cards.WIN_Count.ToString();
 
                     //密偵のフラグをtrueに
-                    Cards.Spy_Effect = true;
+                    //Cards.Spy_Effect = true;
                     break;
 
                 case 3:
@@ -482,7 +483,7 @@ public class PrincessB : Photon.PunBehaviour
                     break;
 
                 case 7:
-                    /*
+                    
                     //デバッグ用
                     Debug.Log("Owner: " + Cards.Own_Num);
                     Debug.Log("Other: " + Cards.Other_Num);
@@ -503,7 +504,7 @@ public class PrincessB : Photon.PunBehaviour
 
                     //ゲーム終了、リセットフラグをtrueに
                     Cards.Reset_Flag = true;
-                    */
+                    
                     break;
             }
         }
@@ -595,7 +596,7 @@ public class PrincessB : Photon.PunBehaviour
                     Cards.Own_General_Effect = false;
 
                     //密偵のフラグをtrueに
-                    Cards.Spy_Effect = true;
+                    //Cards.Spy_Effect = true;
                     break;
 
                 case 3:
@@ -712,7 +713,7 @@ public class PrincessB : Photon.PunBehaviour
                     break;
 
                 case 7:
-                    /*
+                    
                     //デバッグ用
                     Debug.Log("Owner: " + Cards.Own_Num);
                     Debug.Log("Other: " + Cards.Other_Num);
@@ -736,7 +737,7 @@ public class PrincessB : Photon.PunBehaviour
 
                     //ゲーム終了、リセットフラグをtrueに
                     Cards.Reset_Flag = true;
-                    */
+                    
                     break;
             }
         }
@@ -828,7 +829,7 @@ public class PrincessB : Photon.PunBehaviour
                     Cards.Other_General_Effect = false;
 
                     //密偵のフラグをtrueに
-                    Cards.Spy_Effect = true;
+                    //Cards.Spy_Effect = true;
                     break;
 
                 case 3:
@@ -916,7 +917,7 @@ public class PrincessB : Photon.PunBehaviour
                     break;
 
                 case 7:
-                    /*
+                    
                     //デバッグ用
                     Debug.Log("Owner: " + Cards.Own_Num);
                     Debug.Log("Other: " + Cards.Other_Num);
@@ -940,7 +941,7 @@ public class PrincessB : Photon.PunBehaviour
 
                     //ゲーム終了、リセットフラグをtrueに
                     Cards.Reset_Flag = true;
-                    */
+                    
                     break;
                     
             }

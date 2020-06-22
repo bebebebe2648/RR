@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class NOB : Photon.PunBehaviour
 {
-    PhotonView BackView;
-
     [SerializeField]
     Cards Cards;
 
@@ -13,169 +11,16 @@ public class NOB : Photon.PunBehaviour
     GameObject Check_Panel;
     [SerializeField]
     YESB YES_Button;
-
-    public int NOBox = -1;
-
-    void Awake()
-    {
-        BackView = GetComponent<PhotonView>();
-    }
-
-    //先押しで相手が押してない場合
-    void BackNum()
-    {
-        BackView.RPC("BackNUM", PhotonTargets.All);
-    }
-
-    [PunRPC]
-    public void BackNUM()
-    {
-        if (PhotonNetwork.player.IsMasterClient)
-        {
-            Cards.Other_Num = -1;
-        }
-
-        else
-        {
-            Cards.Other_Num = -1;
-        }
-    }
-    
-    //先押しで相手が押している場合
-    void BackNumPlus()
-    {
-        BackView.RPC("BackNUMPlus", PhotonTargets.All);
-    }
-
-    [PunRPC]
-    public void BackNUMPlus()
-    {
-        if (PhotonNetwork.player.IsMasterClient)
-        {
-            Cards.Other_Num = -1;
-            YES_Button.EscBox = -1;
-        }
-
-        else
-        {
-            Cards.Other_Num = -1;
-            YES_Button.EscBox = -1;
-        }
-    }
     
     public void OnClick()
     {
-        
-        if (PhotonNetwork.player.IsMasterClient)
-        {
-            //先押しで相手が押してない場合
-            if(Cards.Own_Num == Cards.Other_Num && YES_Button.EscBox == -1)
-            {
-                Debug.Log("!");
-                //初期化
-                YES_Button.YESNum = -1;
-                //NT.OwnerNum = -1;
+        //選択した数値をリセット
+        YES_Button.YESNum = -1;
 
-                BackNum();
-            }
+        //表示リセット
+        Cards.OwnNUM.text = "自分： ";
 
-            //先押しで相手が押している場合
-            if(Cards.Own_Num == -1 && Cards.Other_Num != -1 && YES_Button.EscBox == -1)
-            {
-                Debug.Log("!!");
-                //初期化
-                YES_Button.YESNum = -1;
-
-                //相手からの数値を保持
-                NOBox = Cards.Other_Num;
-
-                BackNumPlus();
-
-                //保持した数値を戻す
-                Cards.Other_Num = NOBox;
-
-                //初期化
-                NOBox = -1;
-            }
-
-            //後押しの場合
-            if(Cards.Own_Num != Cards.Other_Num && YES_Button.EscBox != -1)
-            {
-                Debug.Log("!!!");
-                //初期化
-                YES_Button.YESNum = -1;
-                //NT.OwnerNum = -1;
-
-                //初期化
-                YES_Button.EscBox = -1;
-                
-                //相手からの数値を保持
-                NOBox = Cards.Other_Num;
-
-                BackNum();
-
-                //保持した数値を戻す
-                Cards.Other_Num = NOBox;
-
-                //初期化
-                NOBox = -1;
-            }
-        }
-
-        else
-        {
-            //先押しで相手が押してない場合
-            if (Cards.Own_Num == Cards.Other_Num && YES_Button.EscBox == -1)
-            {
-                Debug.Log("!");
-                //初期化
-                YES_Button.YESNum = -1;
-
-                BackNum();
-            }
-
-            //先押しで相手が押している場合
-            if (Cards.Own_Num == -1 && Cards.Other_Num != -1 && YES_Button.EscBox == -1)
-            {
-                Debug.Log("!!");
-                //初期化
-                YES_Button.YESNum = -1;
-                //NT.OwnerNum = -1;
-
-                //相手からの数値を保持
-                NOBox = Cards.Other_Num;
-
-                BackNumPlus();
-
-                //保持した数値を戻す
-                Cards.Other_Num = NOBox;
-
-                //初期化
-                NOBox = -1;
-            }
-
-            //後押しの場合
-            if (Cards.Own_Num != Cards.Other_Num && YES_Button.EscBox != -1)
-            {
-                Debug.Log("!!!");
-                //初期化
-                YES_Button.YESNum = -1;
-
-                //初期化
-                YES_Button.EscBox = -1;
-                
-                //相手からの数値を保持
-                NOBox = Cards.Other_Num;
-
-                BackNumPlus();
-
-                //保持した数値を戻す
-                Cards.Other_Num = NOBox;
-
-                //初期化
-                NOBox = -1;
-            }
-        }
+        Cards.Own_Spy_Effect = false;
 
         //ボタンを押せるように
         Cards.Clown_Card[0].Use_Card = false;
@@ -205,8 +50,10 @@ public class NOB : Photon.PunBehaviour
         Cards.General_Card[0].Card_Flag = false;
         Cards.Prince_Card[0].Card_Flag = false;
 
+        //チェックパネルを閉じる
         Check_Panel.gameObject.SetActive(false);
 
+        //初期メッセージ表示
         Cards.Message_Text.text = "ボタンを選んで押してください。\nボタンにカーソルを合わせると\n説明が出ます。" +
                                   "\n【】内の数値の大きい方が\n勝ちです。\n4回勝てばゲームに勝利します。";
     }

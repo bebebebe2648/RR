@@ -28,6 +28,23 @@ public class CheckB : MonoBehaviour
     {
         Cards.CardSet();
 
+        Cards.Clown_Card[0].Use_Card = false;
+        Cards.Clown_Card[0].Used_Card = false;
+        Cards.Princess_Card[0].Use_Card = false;
+        Cards.Princess_Card[0].Used_Card = false;
+        Cards.Spy_Card[0].Use_Card = false;
+        Cards.Spy_Card[0].Used_Card = false;
+        Cards.Assassin_Card[0].Use_Card = false;
+        Cards.Assassin_Card[0].Used_Card = false;
+        Cards.Ministry_Card[0].Use_Card = false;
+        Cards.Ministry_Card[0].Used_Card = false;
+        Cards.Magician_Card[0].Use_Card = false;
+        Cards.Magician_Card[0].Used_Card = false;
+        Cards.General_Card[0].Use_Card = false;
+        Cards.General_Card[0].Used_Card = false;
+        Cards.Prince_Card[0].Use_Card = false;
+        Cards.Prince_Card[0].Used_Card = false;
+
         Cards.Clown_Button.interactable = true;
         Cards.Princess_Button.interactable = true;
         Cards.Spy_Button.interactable = true;
@@ -52,7 +69,8 @@ public class CheckB : MonoBehaviour
         Cards.Other_OK_Flag = false;
 
         //密偵・両将軍効果フラグをfalseに
-        Cards.Spy_Effect = false;
+        Cards.Own_Spy_Effect = false;
+        Cards.Other_Spy_Effect = false;
         Cards.Own_General_Effect = false;
         Cards.Other_General_Effect = false;
 
@@ -73,15 +91,68 @@ public class CheckB : MonoBehaviour
 
     public void OnClick()
     {
-        //各ボタン押せるように
-        if (PhotonNetwork.player.IsMasterClient)
+        //密偵の事後処理
+        if (Cards.Own_Spy_Effect == false && Cards.Other_Spy_Effect == true)
         {
-            Push_Button();
+            //各ボタン押せるように
+            if (PhotonNetwork.player.IsMasterClient)
+            {
+                Push_Button();
+            }
+
+            else
+            {
+                Push_Button();
+            }
         }
 
+        //密偵の効果処理
+        else if(Cards.Own_Spy_Effect == true && Cards.Other_Spy_Effect == false)
+        {
+            /*
+            if (PhotonNetwork.player.IsMasterClient)
+            {
+                YES.SpyEffect();
+            }
+
+            else
+            {
+                YES.SpyEffect();
+            }
+            */
+        }
+
+        //両者密偵を使った場合
+        else if(Cards.Own_Spy_Effect == true && Cards.Other_Spy_Effect == true)
+        {
+            Cards.Own_Spy_Effect = false;
+            Cards.Other_Spy_Effect = false;
+
+            //各ボタン押せるように
+            if (PhotonNetwork.player.IsMasterClient)
+            {
+                Push_Button();
+            }
+
+            else
+            {
+                Push_Button();
+            }
+        }
+
+        //両者密偵以外を使った場合
         else
         {
-            Push_Button();
+            //各ボタン押せるように
+            if (PhotonNetwork.player.IsMasterClient)
+            {
+                Push_Button();
+            }
+
+            else
+            {
+                Push_Button();
+            }
         }
 
         //説明が出るように
@@ -93,7 +164,19 @@ public class CheckB : MonoBehaviour
         Cards.Magician_Card[0].Card_Flag = false;
         Cards.General_Card[0].Card_Flag = false;
         Cards.Prince_Card[0].Card_Flag = false;
-        
+
+        Cards.Own_OK_Flag = false;
+        Cards.Other_OK_Flag = false;
+
+        //ループ阻止のフラグ
+        Cards.LoopCut = true;
+
+        Cards.Own_Num = -1;
+        Cards.Other_Num = -1;
+
+        Debug.Log("Check_Owner: " + Cards.Own_Num);
+        Debug.Log("Check_Other: " + Cards.Other_Num);
+
         Win_Lose_Panel.gameObject.SetActive(false);
     }
 

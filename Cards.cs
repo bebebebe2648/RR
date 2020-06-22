@@ -43,6 +43,12 @@ public class Cards : Photon.PunBehaviour
 
     PhotonView RRView;
 
+    //数値確認用（後ほど消す）
+    [SerializeField]
+    public Text OwnNUM;
+    [SerializeField]
+    public Text OtherNUM;
+
     //勝敗判定の参照用
     [SerializeField]
     ClownB ClownB;
@@ -69,7 +75,7 @@ public class Cards : Photon.PunBehaviour
     GameObject Check_Panel;
     //勝敗表示パネル(WorLP)
     [SerializeField]
-    GameObject Win_Lose_Panel;
+    public GameObject Win_Lose_Panel;
 
     //勝敗表示テキスト(BorS)
     [SerializeField]
@@ -102,13 +108,17 @@ public class Cards : Photon.PunBehaviour
     public int ADD_Win_Lose = 1;
 
     //各種効果のフラグ
-    public bool Spy_Effect = false;
+    public bool Own_Spy_Effect = false;
+    public bool Other_Spy_Effect = false;
     public bool Own_General_Effect = false;
     public bool Other_General_Effect = false;
 
     //カードを出し終わったかの確認フラグ
     public bool Own_OK_Flag;
     public bool Other_OK_Flag;
+
+    //ループ阻止のフラグ
+    public bool LoopCut = true;
 
     //プレイヤーのカードの数値
     public int Own_Num = -1;
@@ -199,7 +209,13 @@ public class Cards : Photon.PunBehaviour
         {
             if (Own_OK_Flag == true && Other_OK_Flag == true)
             {
-                WINorLOSE();
+                Win_Lose_Panel.SetActive(true);
+
+                if (LoopCut == true)
+                {
+                    WINorLOSE();
+                    LoopCut = false;
+                }
             }
         }
 
@@ -207,7 +223,13 @@ public class Cards : Photon.PunBehaviour
         {
             if (Own_OK_Flag == true && Other_OK_Flag == true)
             {
-                WINorLOSE();
+                Win_Lose_Panel.SetActive(true);
+
+                if (LoopCut == true)
+                {
+                    WINorLOSE();
+                    LoopCut = false;
+                }
             }
         }
 
@@ -283,13 +305,13 @@ public class Cards : Photon.PunBehaviour
     }
 
     //プレイヤーが退室した場合
-    public override void OnMasterClientSwitched(PhotonPlayer newMasterClient)
+    public void OnMasterClientSwitched()
     {
-        SceneManager.LoadScene("Title");
+        //SceneManager.LoadScene("OT");
     }
 
-    public override void OnPhotonPlayerDisconnected(PhotonPlayer Player)
+    public void OnPhotonPlayerDisconnected()
     {
-        SceneManager.LoadScene("Title");
+        SceneManager.LoadScene("OT");
     }
 }

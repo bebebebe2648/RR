@@ -20,7 +20,7 @@ public class ClownB : Photon.PunBehaviour
             Cards.Clown_Button.interactable = false;
         }
 
-        if (Cards.Spy_Effect == true)
+        if (Cards.Own_Spy_Effect == true)
         {
             Cards.Clown_Button.interactable = false;
         }
@@ -69,6 +69,7 @@ public class ClownB : Photon.PunBehaviour
         Cards.Prince_Card[0].Card_Flag = true;
 
         YES.YESNum = Cards.Clown_Card[0].Card_Num;
+        Cards.OwnNUM.text = "自分： " + YES.YESNum;
         Cards.Message_Text.text = "【道化】を選択中。";
     }
 
@@ -99,6 +100,9 @@ public class ClownB : Photon.PunBehaviour
                     Debug.Log("Owner: " + Cards.Own_Num);
                     Debug.Log("Other: " + Cards.Other_Num);
 
+                    //勝敗パネルの表示
+                    //Cards.Win_Lose_Panel.SetActive(true);
+
                     //お互いのカードの表示
                     Cards.Owner_Card.text = "あなたは道化【" + Cards.Own_Num + "（将軍！）】を出しました。";
                     Cards.Other_Card.text = "相手は道化【" + Cards.Other_Num + "（将軍！）】を出しました。";
@@ -125,6 +129,9 @@ public class ClownB : Photon.PunBehaviour
                     //デバッグ用
                     Debug.Log("Owner: " + Cards.Own_Num);
                     Debug.Log("Other: " + Cards.Other_Num);
+
+                    //勝敗パネルの表示
+                    //Cards.Win_Lose_Panel.SetActive(true);
 
                     //お互いのカードの表示
                     Cards.Owner_Card.text = "あなたは道化【" + Cards.Own_Num + "（将軍！）】を出しました。";
@@ -153,6 +160,9 @@ public class ClownB : Photon.PunBehaviour
                     Debug.Log("Owner: " + Cards.Own_Num);
                     Debug.Log("Other: " + Cards.Other_Num);
 
+                    //勝敗パネルの表示
+                    //Cards.Win_Lose_Panel.SetActive(true);
+
                     //お互いのカードの表示
                     Cards.Owner_Card.text = "あなたは道化【" + Cards.Own_Num + "（将軍！）】を出しました。";
                     Cards.Other_Card.text = "相手は密偵【" + Cards.Other_Num + "（将軍！）】を出しました。";
@@ -175,13 +185,16 @@ public class ClownB : Photon.PunBehaviour
                     Cards.Other_General_Effect = false;
 
                     //密偵のフラグをtrueに
-                    Cards.Spy_Effect = true;
+                    //Cards.Spy_Effect = true;
                     break;
 
                 case 3:
                     //デバッグ用
                     Debug.Log("Owner: " + Cards.Own_Num);
                     Debug.Log("Other: " + Cards.Other_Num);
+
+                    //勝敗パネルの表示
+                    //Cards.Win_Lose_Panel.SetActive(true);
 
                     //お互いのカードの表示
                     Cards.Owner_Card.text = "あなたは道化【" + Cards.Own_Num + "（将軍！）】を出しました。";
@@ -210,6 +223,9 @@ public class ClownB : Photon.PunBehaviour
                     Debug.Log("Owner: " + Cards.Own_Num);
                     Debug.Log("Other: " + Cards.Other_Num);
 
+                    //勝敗パネルの表示
+                    //Cards.Win_Lose_Panel.SetActive(true);
+
                     //お互いのカードの表示
                     Cards.Owner_Card.text = "あなたは道化【" + Cards.Own_Num + "（将軍！）】を出しました。";
                     Cards.Other_Card.text = "相手は大臣【" + Cards.Other_Num + "（将軍！）】を出しました。";
@@ -236,6 +252,9 @@ public class ClownB : Photon.PunBehaviour
                     //デバッグ用
                     Debug.Log("Owner: " + Cards.Own_Num);
                     Debug.Log("Other: " + Cards.Other_Num);
+
+                    //勝敗パネルの表示
+                    //Cards.Win_Lose_Panel.SetActive(true);
 
                     //お互いのカードの表示
                     Cards.Owner_Card.text = "あなたは道化【" + Cards.Own_Num + "（将軍！）】を出しました。";
@@ -265,6 +284,9 @@ public class ClownB : Photon.PunBehaviour
                     //デバッグ用
                     Debug.Log("Owner: " + Cards.Own_Num);
                     Debug.Log("Other: " + Cards.Other_Num);
+
+                    //勝敗パネルの表示
+                    //Cards.Win_Lose_Panel.SetActive(true);
 
                     //お互いのカードの表示
                     Cards.Owner_Card.text = "あなたは道化【" + Cards.Own_Num + "（将軍！）】を出しました。";
@@ -300,6 +322,9 @@ public class ClownB : Photon.PunBehaviour
                     Debug.Log("Owner: " + Cards.Own_Num);
                     Debug.Log("Other: " + Cards.Other_Num);
 
+                    //勝敗パネルの表示
+                    //Cards.Win_Lose_Panel.SetActive(true);
+
                     //お互いのカードの表示
                     Cards.Owner_Card.text = "あなたは道化【" + Cards.Own_Num + "】を出しました。";
                     Cards.Other_Card.text = "相手は道化【" + Cards.Other_Num + "】を出しました。";
@@ -322,6 +347,9 @@ public class ClownB : Photon.PunBehaviour
                     //デバッグ用
                     Debug.Log("Owner: " + Cards.Own_Num);
                     Debug.Log("Other: " + Cards.Other_Num);
+
+                    //勝敗パネルの表示
+                    //Cards.Win_Lose_Panel.SetActive(true);
 
                     //お互いのカードの表示
                     Cards.Owner_Card.text = "あなたは道化【" + Cards.Own_Num + "】を出しました。";
@@ -346,6 +374,9 @@ public class ClownB : Photon.PunBehaviour
                     Debug.Log("Owner: " + Cards.Own_Num);
                     Debug.Log("Other: " + Cards.Other_Num);
 
+                    //勝敗パネルの表示
+                    //Cards.Win_Lose_Panel.SetActive(true);
+
                     //お互いのカードの表示
                     Cards.Owner_Card.text = "あなたは道化【" + Cards.Own_Num + "】を出しました。";
                     Cards.Other_Card.text = "相手は密偵【" + Cards.Other_Num + "】を出しました。";
@@ -364,13 +395,16 @@ public class ClownB : Photon.PunBehaviour
                     Cards.Other_Lose.text = "LOSE : " + Cards.WIN_Count.ToString();
 
                     //密偵のフラグをtrueに
-                    Cards.Spy_Effect = true;
+                    //Cards.Spy_Effect = true;
                     break;
 
                 case 3:
                     //デバッグ用
                     Debug.Log("Owner: " + Cards.Own_Num);
                     Debug.Log("Other: " + Cards.Other_Num);
+
+                    //勝敗パネルの表示
+                    //Cards.Win_Lose_Panel.SetActive(true);
 
                     //お互いのカードの表示
                     Cards.Owner_Card.text = "あなたは道化【" + Cards.Own_Num + "】を出しました。";
@@ -395,6 +429,9 @@ public class ClownB : Photon.PunBehaviour
                     Debug.Log("Owner: " + Cards.Own_Num);
                     Debug.Log("Other: " + Cards.Other_Num);
 
+                    //勝敗パネルの表示
+                    //Cards.Win_Lose_Panel.SetActive(true);
+
                     //お互いのカードの表示
                     Cards.Owner_Card.text = "あなたは道化【" + Cards.Own_Num + "】を出しました。";
                     Cards.Other_Card.text = "相手は大臣【" + Cards.Other_Num + "】を出しました。";
@@ -417,6 +454,9 @@ public class ClownB : Photon.PunBehaviour
                     //デバッグ用
                     Debug.Log("Owner: " + Cards.Own_Num);
                     Debug.Log("Other: " + Cards.Other_Num);
+
+                    //勝敗パネルの表示
+                    //Cards.Win_Lose_Panel.SetActive(true);
 
                     //お互いのカードの表示
                     Cards.Owner_Card.text = "あなたは道化【" + Cards.Own_Num + "】を出しました。";
@@ -443,6 +483,9 @@ public class ClownB : Photon.PunBehaviour
                     Debug.Log("Owner: " + Cards.Own_Num);
                     Debug.Log("Other: " + Cards.Other_Num);
 
+                    //勝敗パネルの表示
+                    //Cards.Win_Lose_Panel.SetActive(true);
+
                     //お互いのカードの表示
                     Cards.Owner_Card.text = "あなたは道化【" + Cards.Own_Num + "】を出しました。";
                     Cards.Other_Card.text = "相手は将軍【" + Cards.Other_Num + "】を出しました。";
@@ -468,6 +511,9 @@ public class ClownB : Photon.PunBehaviour
                     //デバッグ用
                     Debug.Log("Owner: " + Cards.Own_Num);
                     Debug.Log("Other: " + Cards.Other_Num);
+
+                    //勝敗パネルの表示
+                    //Cards.Win_Lose_Panel.SetActive(true);
 
                     //お互いのカードの表示
                     Cards.Owner_Card.text = "あなたは道化【" + Cards.Own_Num + "】を出しました。";
@@ -499,6 +545,9 @@ public class ClownB : Photon.PunBehaviour
                     Debug.Log("Owner: " + Cards.Own_Num);
                     Debug.Log("Other: " + Cards.Other_Num);
 
+                    //勝敗パネルの表示
+                    //Cards.Win_Lose_Panel.SetActive(true);
+
                     //お互いのカードの表示
                     Cards.Owner_Card.text = "あなたは道化【" + Cards.Own_Num + "（将軍！）】を出しました。";
                     Cards.Other_Card.text = "相手は道化【" + Cards.Other_Num + "】を出しました。";
@@ -524,6 +573,9 @@ public class ClownB : Photon.PunBehaviour
                     //デバッグ用
                     Debug.Log("Owner: " + Cards.Own_Num);
                     Debug.Log("Other: " + Cards.Other_Num);
+
+                    //勝敗パネルの表示
+                    //Cards.Win_Lose_Panel.SetActive(true);
 
                     //お互いのカードの表示
                     Cards.Owner_Card.text = "あなたは道化【" + Cards.Own_Num + "（将軍！）】を出しました。";
@@ -551,6 +603,9 @@ public class ClownB : Photon.PunBehaviour
                     Debug.Log("Owner: " + Cards.Own_Num);
                     Debug.Log("Other: " + Cards.Other_Num);
 
+                    //勝敗パネルの表示
+                    //Cards.Win_Lose_Panel.SetActive(true);
+
                     //お互いのカードの表示
                     Cards.Owner_Card.text = "あなたは道化【" + Cards.Own_Num + "（将軍！）】を出しました。";
                     Cards.Other_Card.text = "相手は密偵【" + Cards.Other_Num + "】を出しました。";
@@ -572,13 +627,16 @@ public class ClownB : Photon.PunBehaviour
                     Cards.Own_General_Effect = false;
 
                     //密偵のフラグをtrueに
-                    Cards.Spy_Effect = true;
+                    //Cards.Spy_Effect = true;
                     break;
 
                 case 3:
                     //デバッグ用
                     Debug.Log("Owner: " + Cards.Own_Num);
                     Debug.Log("Other: " + Cards.Other_Num);
+
+                    //勝敗パネルの表示
+                    //Cards.Win_Lose_Panel.SetActive(true);
 
                     //お互いのカードの表示
                     Cards.Owner_Card.text = "あなたは道化【" + Cards.Own_Num + "（将軍！）】を出しました。";
@@ -606,6 +664,9 @@ public class ClownB : Photon.PunBehaviour
                     Debug.Log("Owner: " + Cards.Own_Num);
                     Debug.Log("Other: " + Cards.Other_Num);
 
+                    //勝敗パネルの表示
+                    //Cards.Win_Lose_Panel.SetActive(true);
+
                     //お互いのカードの表示
                     Cards.Owner_Card.text = "あなたは道化【" + Cards.Own_Num + "（将軍！）】を出しました。";
                     Cards.Other_Card.text = "相手は大臣【" + Cards.Other_Num + "】を出しました。";
@@ -631,6 +692,9 @@ public class ClownB : Photon.PunBehaviour
                     //デバッグ用
                     Debug.Log("Owner: " + Cards.Own_Num);
                     Debug.Log("Other: " + Cards.Other_Num);
+
+                    //勝敗パネルの表示
+                    //Cards.Win_Lose_Panel.SetActive(true);
 
                     //お互いのカードの表示
                     Cards.Owner_Card.text = "あなたは道化【" + Cards.Own_Num + "（将軍！）】を出しました。";
@@ -660,6 +724,9 @@ public class ClownB : Photon.PunBehaviour
                     Debug.Log("Owner: " + Cards.Own_Num);
                     Debug.Log("Other: " + Cards.Other_Num);
 
+                    //勝敗パネルの表示
+                    //Cards.Win_Lose_Panel.SetActive(true);
+
                     //お互いのカードの表示
                     Cards.Owner_Card.text = "あなたは道化【" + Cards.Own_Num + "（将軍！）】を出しました。";
                     Cards.Other_Card.text = "相手は将軍【" + Cards.Other_Num + "】を出しました。";
@@ -688,6 +755,9 @@ public class ClownB : Photon.PunBehaviour
                     //デバッグ用
                     Debug.Log("Owner: " + Cards.Own_Num);
                     Debug.Log("Other: " + Cards.Other_Num);
+
+                    //勝敗パネルの表示
+                    //Cards.Win_Lose_Panel.SetActive(true);
 
                     //お互いのカードの表示
                     Cards.Owner_Card.text = "あなたは道化【" + Cards.Own_Num + "（将軍！）】を出しました。";
@@ -722,6 +792,9 @@ public class ClownB : Photon.PunBehaviour
                     Debug.Log("Owner: " + Cards.Own_Num);
                     Debug.Log("Other: " + Cards.Other_Num);
 
+                    //勝敗パネルの表示
+                    //Cards.Win_Lose_Panel.SetActive(true);
+
                     //お互いのカードの表示
                     Cards.Owner_Card.text = "あなたは道化【" + Cards.Own_Num + "】を出しました。";
                     Cards.Other_Card.text = "相手は道化【" + Cards.Other_Num + "（将軍！）】を出しました。";
@@ -747,6 +820,9 @@ public class ClownB : Photon.PunBehaviour
                     //デバッグ用
                     Debug.Log("Owner: " + Cards.Own_Num);
                     Debug.Log("Other: " + Cards.Other_Num);
+
+                    //勝敗パネルの表示
+                    //Cards.Win_Lose_Panel.SetActive(true);
 
                     //お互いのカードの表示
                     Cards.Owner_Card.text = "あなたは道化【" + Cards.Own_Num + "】を出しました。";
@@ -774,6 +850,9 @@ public class ClownB : Photon.PunBehaviour
                     Debug.Log("Owner: " + Cards.Own_Num);
                     Debug.Log("Other: " + Cards.Other_Num);
 
+                    //勝敗パネルの表示
+                    //Cards.Win_Lose_Panel.SetActive(true);
+
                     //お互いのカードの表示
                     Cards.Owner_Card.text = "あなたは道化【" + Cards.Own_Num + "】を出しました。";
                     Cards.Other_Card.text = "相手は密偵【" + Cards.Other_Num + "（将軍！）】を出しました。";
@@ -795,13 +874,16 @@ public class ClownB : Photon.PunBehaviour
                     Cards.Other_General_Effect = false;
 
                     //密偵のフラグをtrueに
-                    Cards.Spy_Effect = true;
+                    //Cards.Spy_Effect = true;
                     break;
 
                 case 3:
                     //デバッグ用
                     Debug.Log("Owner: " + Cards.Own_Num);
                     Debug.Log("Other: " + Cards.Other_Num);
+
+                    //勝敗パネルの表示
+                    //Cards.Win_Lose_Panel.SetActive(true);
 
                     //お互いのカードの表示
                     Cards.Owner_Card.text = "あなたは道化【" + Cards.Own_Num + "】を出しました。";
@@ -829,6 +911,9 @@ public class ClownB : Photon.PunBehaviour
                     Debug.Log("Owner: " + Cards.Own_Num);
                     Debug.Log("Other: " + Cards.Other_Num);
 
+                    //勝敗パネルの表示
+                    //Cards.Win_Lose_Panel.SetActive(true);
+
                     //お互いのカードの表示
                     Cards.Owner_Card.text = "あなたは道化【" + Cards.Own_Num + "】を出しました。";
                     Cards.Other_Card.text = "相手は大臣【" + Cards.Other_Num + "（将軍！）】を出しました。";
@@ -854,6 +939,9 @@ public class ClownB : Photon.PunBehaviour
                     //デバッグ用
                     Debug.Log("Owner: " + Cards.Own_Num);
                     Debug.Log("Other: " + Cards.Other_Num);
+
+                    //勝敗パネルの表示
+                    //Cards.Win_Lose_Panel.SetActive(true);
 
                     //お互いのカードの表示
                     Cards.Owner_Card.text = "あなたは道化【" + Cards.Own_Num + "】を出しました。";
@@ -882,6 +970,9 @@ public class ClownB : Photon.PunBehaviour
                     //デバッグ用
                     Debug.Log("Owner: " + Cards.Own_Num);
                     Debug.Log("Other: " + Cards.Other_Num);
+
+                    //勝敗パネルの表示
+                    //Cards.Win_Lose_Panel.SetActive(true);
 
                     //お互いのカードの表示
                     Cards.Owner_Card.text = "あなたは道化【" + Cards.Own_Num + "】を出しました。";

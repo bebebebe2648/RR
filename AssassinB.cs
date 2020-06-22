@@ -20,7 +20,7 @@ public class AssassinB : Photon.PunBehaviour
             Cards.Assassin_Button.interactable = false;
         }
 
-        if (Cards.Spy_Effect == true)
+        if (Cards.Own_Spy_Effect == true)
         {
             Cards.Assassin_Button.interactable = false;
         }
@@ -69,6 +69,7 @@ public class AssassinB : Photon.PunBehaviour
         Cards.Prince_Card[0].Card_Flag = true;
 
         YES.YESNum = Cards.Assassin_Card[0].Card_Num;
+        Cards.OwnNUM.text = "自分： " + YES.YESNum;
         Cards.Message_Text.text = "【暗殺者】を選択中。";
     }
 
@@ -179,7 +180,7 @@ public class AssassinB : Photon.PunBehaviour
                     Cards.Other_General_Effect = false;
 
                     //密偵のフラグをtrueに
-                    Cards.Spy_Effect = true;
+                    //Cards.Spy_Effect = true;
                     break;
 
                 case 3:
@@ -377,7 +378,7 @@ public class AssassinB : Photon.PunBehaviour
                     Cards.Other_Lose.text = "LOSE : " + Cards.WIN_Count.ToString();
 
                     //密偵のフラグをtrueに
-                    Cards.Spy_Effect = true;
+                    //Cards.Spy_Effect = true;
                     break;
 
                 case 3:
@@ -596,7 +597,7 @@ public class AssassinB : Photon.PunBehaviour
                     Cards.Own_General_Effect = false;
 
                     //密偵のフラグをtrueに
-                    Cards.Spy_Effect = true;
+                    //Cards.Spy_Effect = true;
                     break;
 
                 case 3:
@@ -826,7 +827,7 @@ public class AssassinB : Photon.PunBehaviour
                     Cards.Other_General_Effect = false;
 
                     //密偵のフラグをtrueに
-                    Cards.Spy_Effect = true;
+                    //Cards.Spy_Effect = true;
                     break;
 
                 case 3:
